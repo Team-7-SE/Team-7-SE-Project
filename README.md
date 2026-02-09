@@ -1,4 +1,4 @@
-# Housegold Budget Tracker
+# Household Budget Tracker
 The primairy goal that this project seeks to solve is the common issue of balancing a budget across a multi-roomate household. This project is designed to simplify this process into a basic interactive web application that combines budget tracking tools with both a wishlist feature and a financial summary that allows for easy planning and executing of financial decisions across a household.
 
 ## Required Development Software
