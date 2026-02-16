@@ -44,17 +44,17 @@ function MainPage() {
 
         </div>
 
-
-
-
-
-
-
-        {/*Sam work in this div below*/}
+        {/*Lower half of page div (list of items to buy)*/}
         <div>
-          <p style={{fontSize: '54px'}}>
-            SAMUELS div
-          </p>
+          {/*Div for title text and 'add item' button*/}
+          <div>
+            <span style={{fontSize: '54px'}}>
+              Items to Buy:
+            </span>
+            <button onClick={() => navigate("")} style={{backgroundColor: 'black', color: 'blue'}}>
+              +
+            </button>
+          </div>
         </div>
 
 
