@@ -1,7 +1,7 @@
 function TransactionPage() {
   return (
     <div>
-      <h1>TransactionPage</h1>
+      <h1>Test Page</h1>
       <p>Carter2(Nathaniel) work here</p>
     </div>
   );
