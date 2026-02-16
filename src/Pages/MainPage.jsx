@@ -1,9 +1,33 @@
 function MainPage() {
   return (
-    <div>
-      <h1>Main Page</h1>
-      <p>Sam and Alex work here</p>
-    </div>
+    
+     <>
+
+
+
+
+
+      {/*Alex work in this div below*/}
+      <div>
+        <p style={{fontSize: '54px'}}>
+          Alex div
+        </p>
+      </div>
+
+
+
+
+      {/*Sam work in this div below*/}
+      <div>
+        <p style={{fontSize: '54px'}}>
+          SAMUELS div
+        </p>
+      </div>
+
+
+
+
+    </>
   );
 }
 
