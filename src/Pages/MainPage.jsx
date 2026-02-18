@@ -3,12 +3,27 @@ import React, {useState} from "react";
 function MainPage() {
 
   //React state array
-  const [people] = useState([
+  const [people, setPeople] = useState([
     {id: 0, name: "Carter", total: 35.67},
     {id: 1, name: "Sam", total: 18.98},
     {id: 2, name: "Nathaniel", total: 22.54},
     {id: 3, name: "Erik", total: 18.30},
   ]);
+  //Adds a person to our people array
+  const addPerson = () => {
+    
+  };
+
+  //Removes a person from our people array
+  const removePerson = () => {
+    
+  };
+
+  //Edits a person from our people array
+  const editPerson = () => {
+
+  }
+
 
   //array for list of items
   const [items, setItems] = useState([
@@ -16,6 +31,8 @@ function MainPage() {
     {id: 1, name: "Item 2", quantity: 1},
     {id: 2, name: "Item 3", quantity: 6}
   ]);
+
+
 
   return (
     
@@ -44,13 +61,13 @@ function MainPage() {
           </div>
           {/*Div that displays buttons: +, -, edit person*/}
           <div style={{display: "flex", gap: "7px"}}>
-            <button onClick={() => navigate("")} style={{backgroundColor: 'black', color: 'greenyellow'}}>
+            <button onClick={addPerson} style={{backgroundColor: 'black', color: 'greenyellow'}}>
               +
             </button>
-            <button onClick={() => navigate("")} style={{backgroundColor: 'black', color: 'red'}}>
+            <button onClick={removePerson} style={{backgroundColor: 'black', color: 'red'}}>
               -
             </button>
-            <button onClick={() => navigate("")} style={{backgroundColor: 'black', color: 'white'}}>
+            <button onClick={editPerson} style={{backgroundColor: 'black', color: 'white'}}>
               Edit Person
             </button>
           </div>
