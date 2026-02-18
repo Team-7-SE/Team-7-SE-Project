@@ -13,6 +13,7 @@ function Page1() {
 
         {/*The container for Login functions*/}
         <div style={{ background: "white", padding: "48px", width: "340px", borderRadius: "8px", boxShadow: "0 2px 12px rgba(0,0,0,0.1)" }}>
+          <h1 style={{ textAlign: "center", marginBottom: "24px", color: "black" }}>Login</h1>
         </div>
 
         <button onClick={() => navigate("/main")} style={{ backgroundColor: 'blue', color: 'white' }}>
