@@ -7,21 +7,21 @@ function Page1() {
 
   return (
     <>
-      
-      <div>
 
-        <p style={{fontSize: '54px'}}>
-          Home page work here Eric
-        </p>
+      {/*The main container for the page, which centers the content both vertically and horizontally*/}
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", minHeight: "100vh", gap: "12px" }}>
 
-        <button onClick={() => navigate("/main")} style={{backgroundColor: 'blue', color: 'white'}}>
+        {/*The container for Login functions*/}
+        <div style={{ background: "white", padding: "48px", width: "340px", borderRadius: "8px", boxShadow: "0 2px 12px rgba(0,0,0,0.1)" }}>
+        </div>
+
+        <button onClick={() => navigate("/main")} style={{ backgroundColor: 'blue', color: 'white' }}>
           Route me to main page(Sam and Alex work here)
         </button>
 
-        <button onClick={() => navigate("/transaction")} style={{backgroundColor: 'pink', color: 'black'}}>
+        <button onClick={() => navigate("/transaction")} style={{ backgroundColor: 'pink', color: 'black' }}>
           Route me to transaction page(Nathaniel work here)
         </button>
-        
 
       </div>
 
