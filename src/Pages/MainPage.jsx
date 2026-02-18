@@ -1,4 +1,16 @@
+import React, {useState} from "react";
+
 function MainPage() {
+
+  //React state array
+  const [people] = useState([
+    {id: 0, name: "Carter", total: 35.67},
+    {id: 1, name: "Sam", total: 18.98},
+    {id: 2, name: "Nathaniel", total: 22.54},
+    {id: 3, name: "Erik", total: 18.30},
+  ]);
+
+  
 
   return (
     
@@ -16,18 +28,14 @@ function MainPage() {
           </p>
           {/*Div that displays names with money spent in format Name: $*/}
           <div style={{border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px"}}>
-            <p style={{fontSize: '28px'}}>
-              Carter: $35.67
-            </p>
-            <p style={{fontSize: '28px'}}>
-              Sam: $18.98
-            </p>
-            <p style={{fontSize: '28px'}}>
-              Nathaniel: $22.54
-            </p>
-            <p style={{fontSize: '28px'}}>
-              Erik: $18.30
-            </p>
+            {/*Div that displays the entire array of people*/}
+            <div>
+              {people.map(person => (
+                <p key={person.id} style={{ fontSize: "28px" }}>
+                  {person.name}: ${person.total}
+                </p>
+              ))}
+            </div>
           </div>
           {/*Div that displays buttons: +, -, edit person*/}
           <div style={{display: "flex", gap: "7px"}}>
@@ -43,6 +51,10 @@ function MainPage() {
           </div>
 
         </div>
+
+
+
+
 
         {/*Lower half of page div (list of items to buy)*/}
         <div style={{textAlign: "left", marginTop: "50px"}}>
