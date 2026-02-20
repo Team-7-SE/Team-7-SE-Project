@@ -1,18 +1,9 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 
-function MainPage() {
+function MainPage( {people} ) {
 
-  //React state array
-  const [people, setPeople] = useState([
-    {id: 0, name: "Carter", total: 35.67},
-    {id: 1, name: "Sam", total: 18.98},
-    {id: 2, name: "Nathaniel", total: 22.54},
-    {id: 3, name: "Erik", total: 18.30},
-  ]);
-  //Adds a person to our people array
-  const addPerson = () => {
-    
-  };
+  const navigate = useNavigate();
 
   //Removes a person from our people array
   const removePerson = () => {
@@ -24,7 +15,7 @@ function MainPage() {
 
   }
 
-
+  
   //array for list of items
   const [items, setItems] = useState([
     {id: 0, name: "Item 1", quantity: 2},
@@ -61,7 +52,8 @@ function MainPage() {
           </div>
           {/*Div that displays buttons: +, -, edit person*/}
           <div style={{display: "flex", gap: "7px"}}>
-            <button onClick={addPerson} style={{backgroundColor: 'black', color: 'greenyellow'}}>
+            {/*Routes to AddPerson page to peform function of adding a person*/}
+            <button onClick={() => navigate("/add-person")} style={{backgroundColor: 'black', color: 'greenyellow'}}>
               +
             </button>
             <button onClick={removePerson} style={{backgroundColor: 'black', color: 'red'}}>
