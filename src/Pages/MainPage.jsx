@@ -7,9 +7,9 @@ function MainPage( {people} ) {
   
   //array for list of items
   const [items, setItems] = useState([
-    {id: 0, name: "Item 1", quantity: 2},
-    {id: 1, name: "Item 2", quantity: 1},
-    {id: 2, name: "Item 3", quantity: 6}
+    {id: 0, name: "Dish Soap", price: 5.00, quantity: 2},
+    {id: 1, name: "Chair", price: 10.00, quantity: 1},
+    {id: 2, name: "Paper Towels", price: 3.00, quantity: 6}
   ]);
 
 
@@ -85,7 +85,7 @@ function MainPage( {people} ) {
           <div style={{border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px"}}>
             {items.map(item => (
                 <p key={item.id} style={{fontSize: "28px", color: "black"}}>
-                  {item.name}
+                  {item.name}: ${item.price}
 
                   {/*mark as purchased button*/}
                   <button style={{float: "right", fontSize: "8px", border: "1px solid black", marginLeft: "3px"}}>
@@ -93,7 +93,7 @@ function MainPage( {people} ) {
                   </button>
 
                   {/*quantity input*/}
-                  <input type="number" style={{width: "30px", float: "right"}}/>
+                  <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{width: "30px", float: "right"}}/>
 
                   {/*delete button*/}
                   <button style={{float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px"}}>
