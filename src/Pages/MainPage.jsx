@@ -1,35 +1,15 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 
-function MainPage() {
+function MainPage( {people} ) {
 
-  //React state array
-  const [people, setPeople] = useState([
-    {id: 0, name: "Carter", total: 35.67},
-    {id: 1, name: "Sam", total: 18.98},
-    {id: 2, name: "Nathaniel", total: 22.54},
-    {id: 3, name: "Erik", total: 18.30},
-  ]);
-  //Adds a person to our people array
-  const addPerson = () => {
-    
-  };
-
-  //Removes a person from our people array
-  const removePerson = () => {
-    
-  };
-
-  //Edits a person from our people array
-  const editPerson = () => {
-
-  }
-
-
+  const navigate = useNavigate();
+  
   //array for list of items
   const [items, setItems] = useState([
-    {id: 0, name: "Item 1", quantity: 2},
-    {id: 1, name: "Item 2", quantity: 1},
-    {id: 2, name: "Item 3", quantity: 6}
+    {id: 0, name: "Dish Soap", price: 5.00, quantity: 2},
+    {id: 1, name: "Chair", price: 10.00, quantity: 1},
+    {id: 2, name: "Paper Towels", price: 3.00, quantity: 6}
   ]);
 
 
@@ -61,13 +41,16 @@ function MainPage() {
           </div>
           {/*Div that displays buttons: +, -, edit person*/}
           <div style={{display: "flex", gap: "7px"}}>
-            <button onClick={addPerson} style={{backgroundColor: 'black', color: 'greenyellow'}}>
+            {/*Routes to AddPerson page to peform function of adding a person*/}
+            <button onClick={() => navigate("/add-person")} style={{backgroundColor: 'black', color: 'greenyellow'}}>
               +
             </button>
-            <button onClick={removePerson} style={{backgroundColor: 'black', color: 'red'}}>
+            {/*Routes to RemovePerson page to peform function of removing a person*/}
+            <button onClick={() => navigate("/remove-person")} style={{backgroundColor: 'black', color: 'red'}}>
               -
             </button>
-            <button onClick={editPerson} style={{backgroundColor: 'black', color: 'white'}}>
+            {/*Routes to EditPerson page to peform function of editing a person*/}
+            <button onClick={() => navigate("/edit-person")} style={{backgroundColor: 'black', color: 'white'}}>
               Edit Person
             </button>
           </div>
@@ -102,7 +85,7 @@ function MainPage() {
           <div style={{border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px"}}>
             {items.map(item => (
                 <p key={item.id} style={{fontSize: "28px", color: "black"}}>
-                  {item.name}
+                  {item.name}: ${item.price}
 
                   {/*mark as purchased button*/}
                   <button style={{float: "right", fontSize: "8px", border: "1px solid black", marginLeft: "3px"}}>
@@ -110,7 +93,7 @@ function MainPage() {
                   </button>
 
                   {/*quantity input*/}
-                  <input type="number" style={{width: "30px", float: "right"}}/>
+                  <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{width: "30px", float: "right"}}/>
 
                   {/*delete button*/}
                   <button style={{float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px"}}>
