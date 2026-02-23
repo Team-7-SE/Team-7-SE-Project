@@ -21,9 +21,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Page1 />} />
-      <Route path="/main" element={<MainPage people={people} />} />
+      <Route path="/main" element={<MainPage people={people} setPeople={setPeople}/>} />
       <Route path="/transaction" element={<TransactionPage />} />
-      <Route path="/add-person" element={<AddPerson people={people} setPeople={setPeople} />} />
       <Route path="remove-person" element={<RemovePerson/>} />
       <Route path="edit-person" element={<EditPerson />} />
     </Routes>

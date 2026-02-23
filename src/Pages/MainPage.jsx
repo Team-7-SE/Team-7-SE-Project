@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import AddPerson from "../Buttons/AddPerson";
 
-function MainPage( {people} ) {
+function MainPage( {people, setPeople} ) {
 
   const navigate = useNavigate();
-  
+  const [showAddPerson, setShowAddPerson] = useState(false);
+
   //array for list of items
   const [items, setItems] = useState([
     {id: 0, name: "Dish Soap", price: 5.00, quantity: 2},
@@ -42,9 +44,17 @@ function MainPage( {people} ) {
           {/*Div that displays buttons: +, -, edit person*/}
           <div style={{display: "flex", gap: "7px"}}>
             {/*Routes to AddPerson page to peform function of adding a person*/}
-            <button onClick={() => navigate("/add-person")} style={{backgroundColor: 'black', color: 'greenyellow'}}>
+            <button onClick={() => setShowAddPerson(true)} style={{backgroundColor: 'black', color: 'greenyellow'}}>
               +
             </button>
+            {/*Pop up add person*/}
+            {showAddPerson && (
+              <AddPerson
+              people={people}
+              setPeople={setPeople}
+              closePopup={() => setShowAddPerson(false)}
+              />
+            )}
             {/*Routes to RemovePerson page to peform function of removing a person*/}
             <button onClick={() => navigate("/remove-person")} style={{backgroundColor: 'black', color: 'red'}}>
               -
