@@ -10,7 +10,7 @@ function App() {
     //React state array
     const [people, setPeople] = useState([
       {id: 0, name: "Carter", total: 35.67},
-      {id: 1, name: "Cartier", total: 18.98}
+      {id: 1, name: "Cartier", total: 18.98},
       {id: 2, name: "Nathaniel", total: 22.54},
       {id: 3, name: "Erik", total: 18.30},
     ]);
