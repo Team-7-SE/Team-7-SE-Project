@@ -12,6 +12,7 @@ function TransactionPage() {
     { id: 6, text: "Carter — Carter 2 - $67.00" }
   ];
 
+  {/*useNavigate hook for routing back to login page on logout button click*/ }
   const navigate = useNavigate();
 
   return (
@@ -51,6 +52,7 @@ function TransactionPage() {
         ))}
       </div>
 
+      {/*Logout button*/}
       <button
         onClick={() => navigate("/")}
         style={{
