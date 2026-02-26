@@ -56,6 +56,10 @@ function TransactionPage() {
         style={{
           marginTop: "20px",
           padding: "8px 16px",
+          backgroundColor: "black",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
           cursor: "pointer",
           fontSize: "14px"
         }}
