@@ -12,6 +12,8 @@ function TransactionPage() {
     { id: 6, text: "Carter — Carter 2 - $67.00" }
   ];
 
+  const navigate = useNavigate();
+
   return (
     //Background style
     <div style={{ backgroundColor: "#585756", minHeight: "100vh", padding: "30px" }}>
@@ -21,7 +23,7 @@ function TransactionPage() {
         Transactions Log
       </h1>
 
-       {/* Transaction log window */}
+      {/* Transaction log window */}
       <div
         style={{
           border: "2px solid black",
@@ -49,7 +51,15 @@ function TransactionPage() {
         ))}
       </div>
 
-
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          cursor: "pointer",
+          fontSize: "14px"
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 }
