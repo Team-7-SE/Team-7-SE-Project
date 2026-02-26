@@ -54,6 +54,8 @@ function TransactionPage() {
       <button
         onClick={() => navigate("/")}
         style={{
+          marginTop: "20px",
+          padding: "8px 16px",
           cursor: "pointer",
           fontSize: "14px"
         }}
