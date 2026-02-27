@@ -16,7 +16,10 @@ function MainPage({ people, setPeople }) {
     { id: 2, name: "Paper Towels", price: 3.00, quantity: 6 }
   ]);
 
-
+  //function to delete from list of items
+  const deleteItem = (id) => {
+    setItems(prevItems => prevItems.filter(item => item.id !== id));
+  };
 
   return (
 
@@ -116,7 +119,7 @@ function MainPage({ people, setPeople }) {
                 <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right" }} />
 
                 {/*delete button*/}
-                <button style={{ float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px" }}>
+                <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px" }}>
                   Delete
                 </button>
               </p>
