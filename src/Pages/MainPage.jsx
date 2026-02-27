@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
+import AddItem from "../Buttons/AddItem";
 
 function MainPage({ people, setPeople }) {
 
   const navigate = useNavigate();
   const [showAddPerson, setShowAddPerson] = useState(false);
   const [showRemovePerson, setShowRemovePerson] = useState(false);
+  const [showAddItem, setShowAddItem] = useState(false);
 
   //array for list of items
   const [items, setItems] = useState([
@@ -15,6 +17,23 @@ function MainPage({ people, setPeople }) {
     { id: 1, name: "Chair", price: 10.00, quantity: 1 },
     { id: 2, name: "Paper Towels", price: 3.00, quantity: 6 }
   ]);
+
+  //generates new id's for items
+  const [nextItemID, setNextItemID] = useState(3);
+
+  //handler for add item button
+  const addItem = (item) => {
+    setItems(prev => [
+      ...prev,
+      {
+        id: nextItemID,
+        name: item.name,
+        price: parseFloat(item.price),
+        quantity: item.quantity
+      }
+    ]);
+    setNextItemID(prev => prev + 1);
+  };
 
   //function to delete from list of items
   const deleteItem = (id) => {
@@ -91,9 +110,10 @@ function MainPage({ people, setPeople }) {
             <span style={{ fontSize: "54px", fontWeight: "bold", marginRight: "20px", color: "black" }}>
               Items to Buy:
             </span>
-            <button onClick={() => navigate("")} style={{ backgroundColor: "black", color: "blue" }}>
+            <button onClick={() => setShowAddItem(true)} style={{backgroundColor: "black", color: "lightblue"}}>
               +
             </button>
+            {showAddItem  && (<AddItem addItem={addItem} closePopup={() => setShowAddItem(false)}/>)}
           </div>
 
           {/*Div for search bar and filter button*/}
@@ -116,7 +136,7 @@ function MainPage({ people, setPeople }) {
                 </button>
 
                 {/*quantity input*/}
-                <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right" }} />
+                <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right"}} />
 
                 {/*delete button*/}
                 <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px" }}>
