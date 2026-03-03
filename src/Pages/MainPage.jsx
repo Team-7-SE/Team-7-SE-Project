@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
 import AddItem from "../Buttons/AddItem";
+import Purchased from "../Buttons/Purchased";
 
 function MainPage({ people, setPeople }) {
 
@@ -10,6 +11,8 @@ function MainPage({ people, setPeople }) {
   const [showAddPerson, setShowAddPerson] = useState(false);
   const [showRemovePerson, setShowRemovePerson] = useState(false);
   const [showAddItem, setShowAddItem] = useState(false);
+  const [showPurchased, setShowPurchased] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   //array for list of items
   const [items, setItems] = useState([
@@ -33,6 +36,19 @@ function MainPage({ people, setPeople }) {
       }
     ]);
     setNextItemID(prev => prev + 1);
+  };
+
+  //handler for purchased button
+  const markPurchased = (id, amount) => {
+    setItems(prevItems =>
+      prevItems
+        .map(item =>
+          item.id === id
+            ? { ...item, quantity: item.quantity - amount }
+            : item
+        )
+        .filter(item => item.quantity > 0)
+    );
   };
 
   //function to delete from list of items
@@ -131,12 +147,12 @@ function MainPage({ people, setPeople }) {
                 {item.name}: ${item.price}
 
                 {/*mark as purchased button*/}
-                <button style={{ float: "right", fontSize: "8px", border: "1px solid black", marginLeft: "3px" }}>
+                <button onClick={() => {setSelectedItem(item); setShowPurchased(true);}} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginLeft: "3px" }}>
                   Purchased
                 </button>
 
                 {/*quantity input*/}
-                <input id="itemQuantity" type="number" defaultValue={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right"}} />
+                <input type="number" value={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right"}} />
 
                 {/*delete button*/}
                 <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px" }}>
@@ -145,6 +161,7 @@ function MainPage({ people, setPeople }) {
               </p>
             ))}
           </div>
+          {showPurchased && selectedItem && (<Purchased item={selectedItem} markPurchased={markPurchased} closePopup={() => setShowPurchased(false)}/>)}
         </div>
 
         {/*Logout button*/}
