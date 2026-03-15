@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
+//Pop up function to edit person from our list
 function EditPerson({ people, setPeople, closePopup }) {
+
+    //State used to store typed name
+    const [selectedId, setSelectedId] = useState("");
+
+    //State used to store new name
+    const [newName, setNewName] = useState("");
+
+    //Function that edits person from our list
+    const editPerson = () => {
+        //If nothing, return
+        if (selectedId === "" || newName === "") {
+            return;
+        }
+
+        //Edits the actual person
+        setPeople(prev =>
+            prev.map(person =>
+                person.id !== parseInt(selectedId)
+                    ? person
+                    : { ...person, name: newName }
+            )
+        );
+
+        //Reset selection and closes popup
+        setSelectedId("");
+        setNewName("");
+        closePopup();
+    };
 
     //Return pop up of div
     return (
@@ -11,24 +40,45 @@ function EditPerson({ people, setPeople, closePopup }) {
                     Edit Person
                 </h2>
 
+                {/* MOSTLY COPIED FROM REMOVE PERSON*/}
+                {/*Dropdown to select person*/}
+                <select 
+                    value={selectedId}
+                    onChange={(e) => setSelectedId(e.target.value)}
+                    style={styles.select}
+                >
+                    <option value="">
+                        --
+                        Select a Person
+                    </option>
+                    {people.map(person => (
+                        <option key={person.id} value={person.id}>
+                            {person.name}
+                        </option>
+                    ))}
+                </select>
 
-                {/*Dropdown to edit person*/}
-                <p>
-                    Edit functionality coming soon...
-                </p>
-
+                {/*Input box for new name*/}
+                <input
+                    type="text"
+                    placeholder="Enter new name..."
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    style={styles.input}
+                />
 
                 <div>
                     {/*Edit person button*/}
+                    <button onClick={editPerson} style={{border : "1px solid black"}}>
+                        Submit
+                    </button>
                     <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black" }}>
-                        Close
+                        Cancel
                     </button>
                 </div>
-
             </div>
         </div>
     );
-
 }
 
 //Styles object used to format popup
