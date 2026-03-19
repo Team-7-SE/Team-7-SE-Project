@@ -5,6 +5,7 @@ import RemovePerson from "../Buttons/RemovePerson";
 import AddItem from "../Buttons/AddItem";
 import Purchased from "../Buttons/Purchased";
 import EditPerson from "../Buttons/EditPerson";
+import SortPeople from "../Buttons/SortPeople";
 
 function MainPage({ people, setPeople }) {
 
@@ -17,6 +18,8 @@ function MainPage({ people, setPeople }) {
   const [personSearch, setPersonSearch] = useState("");
   const [showEditPerson, setShowEditPerson] = useState(false);
   const [itemSearch, setItemSearch] = useState("");
+  const [showSort, setShowSort] = useState(false);
+  const [sortType, setSortType] = useState("default");
 
   //array for list of items
   const [items, setItems] = useState([
@@ -60,6 +63,17 @@ function MainPage({ people, setPeople }) {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
+  //sort function
+  const sortedPeople = [...people]
+    .filter(person =>
+      person.name.toLowerCase().startsWith(personSearch.toLowerCase())
+    )
+    .sort((a,b) => {
+      if(sortType === "min") return a.total-b.total;
+      if(sortType === "max") return b.total-a.total;
+      return 0;
+    });
+
   return (
 
     <>
@@ -82,20 +96,23 @@ function MainPage({ people, setPeople }) {
               onChange={(e) => setPersonSearch(e.target.value)}
               style={{ fontSize: "19px", border: "1px solid black" }} 
             />
-            <button onClick={() => navigate("")} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
+            <button onClick={()=>setShowSort(true)} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
             </button>
+            {/*Pop up filter person*/}
+            {showSort && (
+              <SortPeople
+                setSortType={setSortType}
+                closePopup={()=>setShowSort(false)}
+              />
+            )}
           </div>
           {/*Div that displays names with money spent in format Name: $*/}
           <div style={{ border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px" }}>
             {/*Div that displays the entire array of people*/}
             <div>
-              {people
-              .filter(person =>
-                person.name.toLowerCase().startsWith(personSearch.toLowerCase())
-              )
-              .map(person => (
-                <p key={person.id} style={{ fontSize: "28px" }}>
+              {sortedPeople.map(person => (
+                <p key={person.id} style={{fontSize: "28px"}}>
                   {person.name}: ${person.total}
                 </p>
               ))}
