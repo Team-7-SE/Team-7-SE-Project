@@ -9,9 +9,10 @@ function App() {
     //React state array
     const [people, setPeople] = useState([
       {id: 0, name: "Carter", total: 35.67},
-      {id: 1, name: "Cartier", total: 18.98},
-      {id: 2, name: "Nathaniel", total: 22.54},
+      {id: 1, name: "Bob", total: 18.98},
+      {id: 2, name: "Kyle", total: 22.54},
       {id: 3, name: "Erik", total: 18.30},
+      {id: 4, name: "Greg", total: 130.67},
     ]);
 
 
