@@ -7,6 +7,7 @@ import Purchased from "../Buttons/Purchased";
 import EditPerson from "../Buttons/EditPerson";
 import SortPeople from "../Buttons/SortPeople";
 
+
 function MainPage({ people, setPeople }) {
 
   const navigate = useNavigate();
