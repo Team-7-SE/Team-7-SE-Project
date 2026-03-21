@@ -54,7 +54,7 @@ ________| |_
           style={{
             marginTop: "20px",
             padding: "8px 16px",
-            backgroundColor: "black",
+            backgroundColor: "gray",
             color: "white",
             border: "none",
             borderRadius: "4px",
