@@ -26,8 +26,9 @@ function Page1() {
       <div>
 
       <pre style={{ textAlign: "center",fontWeight: "bold",fontSize: "18px"}}>
-        {`___________
-/            \\
+        {`         __  
+________| |_
+/        | | \\
 /              \\
 /________________\\
 |             |
