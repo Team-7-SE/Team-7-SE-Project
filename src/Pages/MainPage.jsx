@@ -6,6 +6,7 @@ import AddItem from "../Buttons/AddItem";
 import Purchased from "../Buttons/Purchased";
 import EditPerson from "../Buttons/EditPerson";
 import SortPeople from "../Buttons/SortPeople";
+import SortItems from "../Buttons/SortItems";
 
 
 function MainPage({ people, setPeople }) {
@@ -21,6 +22,8 @@ function MainPage({ people, setPeople }) {
   const [itemSearch, setItemSearch] = useState("");
   const [showSort, setShowSort] = useState(false);
   const [sortType, setSortType] = useState("default");
+  const [showItemSort, setShowItemSort] = useState(false);
+  const [itemSortType, setItemSortType] = useState("default");
 
   //array for list of items
   const [items, setItems] = useState([
@@ -64,7 +67,7 @@ function MainPage({ people, setPeople }) {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
-  //sort function
+  //sort people function
   const sortedPeople = [...people]
     .filter(person =>
       person.name.toLowerCase().startsWith(personSearch.toLowerCase())
@@ -72,6 +75,17 @@ function MainPage({ people, setPeople }) {
     .sort((a,b) => {
       if(sortType === "min") return a.total-b.total;
       if(sortType === "max") return b.total-a.total;
+      return 0;
+    });
+
+  //sort people function
+  const sortedItems = [...items]
+    .filter(item =>
+      item.name.toLowerCase().startsWith(itemSearch.toLowerCase())
+    )
+    .sort((a, b) => {
+      if(itemSortType === "min") return a.price-b.price;
+      if(itemSortType === "max") return b.price-a.price;
       return 0;
     });
 
@@ -86,7 +100,7 @@ function MainPage({ people, setPeople }) {
         {/*Upper half of main page div*/}
         <div style={{ textAlign: "left" }}>
           {/*Displays text "Person: Total Spent"*/}
-          <p style={{ fontSize: '48px', fontWeight: "bold", color: "black", marginBottm: '10px' }}>
+          <p style={{ fontSize: '48px', fontWeight: "bold", color: "black", marginBottom: '10px' }}>
             Person: Total Spent
           </p>
           {/*Div for search bar and filter button*/}
@@ -182,15 +196,21 @@ function MainPage({ people, setPeople }) {
           <div style={{ marginTop: "15px", marginBottom: "10px" }}>
             <input type="text" placeholder="Search..." value={itemSearch} 
               onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", border: "1px solid black" }} />
-            <button onClick={() => navigate("")} 
+            <button onClick={() => setShowItemSort(true)} 
               style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
             </button>
+              {showItemSort && (
+                <SortItems
+                  setItemSortType={setItemSortType}
+                  closeSortPopup={() => setShowItemSort(false)}
+                />
+              )}
           </div>
 
           {/*Div for list of items*/}
           <div style={{ border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px" }}>
-            {items.filter(item => item.name.toLowerCase().startsWith(itemSearch.toLowerCase())).map(item => (
+            {sortedItems.map(item => (
               <p key={item.id} style={{ fontSize: "28px", color: "black" }}>
                 {item.name}: ${item.price}
 

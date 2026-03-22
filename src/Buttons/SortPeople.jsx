@@ -4,7 +4,7 @@ function SortPeople({ setSortType, closePopup }) {
   return (
     <div style={styles.overlay}>
       <div style={styles.popup}>
-        <h2>Filter People By Price</h2>
+        <h2>Filter People By $ Spent</h2>
 
         <button
           onClick={() => {
