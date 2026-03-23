@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import {useEffect} from "react";
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import { auth } from "../firebase";
 
 function TransactionPage() {
 
@@ -14,6 +17,25 @@ function TransactionPage() {
 
   {/*useNavigate hook for routing back to login page on logout button click*/ }
   const navigate = useNavigate();
+
+  //Removes unwanted guests (also know if u copy paste link, u can't just bypass to transactions page)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if(!user) {
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
+  
+  //Log out of application
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+      })
+  }
+
 
   return (
     //Background style
@@ -74,7 +96,7 @@ function TransactionPage() {
 
         {/*Logout button*/}
         <button
-          onClick={() => navigate("/")}
+          onClick={handleLogout}
           style={{
             marginTop: "20px",
             padding: "8px 16px",
