@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase";
+
+
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
 import AddItem from "../Buttons/AddItem";
@@ -24,6 +28,25 @@ function MainPage({ people, setPeople }) {
   const [sortType, setSortType] = useState("default");
   const [showItemSort, setShowItemSort] = useState(false);
   const [itemSortType, setItemSortType] = useState("default");
+
+  //Route protection so u cant just copy paste link to home page bypassing login
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      //Takes to login page (security feature)
+      if(!user) {
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
+
+  //Log out of application
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+      })
+  }
 
   //array for list of items
   const [items, setItems] = useState([
@@ -252,9 +275,10 @@ function MainPage({ people, setPeople }) {
             Transactions
           </button>
 
+
           {/*Logout button*/}
           <button
-            onClick={() => navigate("/")}
+            onClick={handleLogout}
             style={{
               marginTop: "20px",
               padding: "8px 16px",
