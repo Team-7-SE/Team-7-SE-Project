@@ -4,7 +4,8 @@ function SortItems({ setItemSortType, closeSortPopup }) {
     return (
         <div style={styles.overlay}>
             <div style={styles.popup}>
-                <h2>Filter Items By Price</h2>
+                <h2 style={{color: "var(--text-invert)"}}
+                >Filter Items By Price</h2>
 
                 <button
                 onClick={() => {
@@ -57,7 +58,7 @@ const styles = {
         alignItems: "center"
     },
     popup: {
-        backgroundColor: "white",
+        backgroundColor: "var(--bg-invert)",
         padding: "20px",
         borderRadius: "10px",
         textAlign: "center",
@@ -67,7 +68,9 @@ const styles = {
         display: "block",
         margin: "10px auto",
         border: "1px solid black",
-        padding: "5px"
+        padding: "5px",
+        backgroundColor: "var(--bg-color)",
+        color: "var(--text-color)"
     }
 };
 

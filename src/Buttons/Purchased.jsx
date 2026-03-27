@@ -16,7 +16,8 @@ function MarkPurchased({ item, markPurchased, closePopup }) {
     return (
         <div style={styles.overlay}>
             <div style={styles.popup}>
-                <h2>Amount Purchased</h2>
+                <h2 style={{color: "var(--text-invert)"}}
+                >Amount Purchased</h2>
 
                 <input
                     type="number"
@@ -61,7 +62,7 @@ const styles = {
 
   //popup box style
   popup: {
-    backgroundColor: "white",
+    backgroundColor: "var(--bg-invert)",
     padding: "20px",
     borderRadius: "10px",
     textAlign: "center",
@@ -72,8 +73,11 @@ const styles = {
   input: {
     width: "75%",
     marginBottom: "15px",
-    padding: "5px"
-  }
+    padding: "5px",
+    backgroundColor: "var(--bg-invert)",
+    color: "var(--text-invert)",
+    border: "1px solid var(--border-color)"
+    }
 };
 
 export default MarkPurchased;

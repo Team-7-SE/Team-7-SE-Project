@@ -133,7 +133,7 @@ function MainPage({ people, setPeople }) {
               type="text" placeholder="Search..."
               value={personSearch}
               onChange={(e) => setPersonSearch(e.target.value)}
-              style={{ fontSize: "19px", backgroundColor: "white", border: "1px solid black" }} 
+              style={{ fontSize: "19px", backgroundColor: "white", color: "black", border: "1px solid black" }} 
             />
             <button onClick={()=>setShowSort(true)} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
@@ -220,7 +220,7 @@ function MainPage({ people, setPeople }) {
           {/*Div for search bar and filter button*/}
           <div style={{ marginTop: "15px", marginBottom: "10px" }}>
             <input type="text" placeholder="Search..." value={itemSearch} 
-              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", backgroundColor: "white", border: "1px solid black" }} />
+              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", backgroundColor: "white", color:"black", border: "1px solid black" }} />
             <button onClick={() => setShowItemSort(true)} 
               style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter

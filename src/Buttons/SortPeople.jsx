@@ -4,7 +4,9 @@ function SortPeople({ setSortType, closePopup }) {
   return (
     <div style={styles.overlay}>
       <div style={styles.popup}>
-        <h2>Filter People By $ Spent</h2>
+        <h2 style={{color: "var(--bg-color)", marginBottom: "10px" }}
+        >
+          Filter People By $ Spent</h2>
 
         <button
           onClick={() => {
@@ -57,7 +59,7 @@ const styles = {
     alignItems: "center"
   },
   popup: {
-    backgroundColor: "white",
+    backgroundColor: "var(--bg-invert)",
     padding: "20px",
     borderRadius: "10px",
     textAlign: "center",
@@ -66,7 +68,9 @@ const styles = {
   button: {
     display: "block",
     margin: "10px auto",
-    border: "1px solid black",
+    border: "1px solid var(--border-color)",
+    backgroundColor: "var(--bg-color)",
+    color: "var(--text-color)",
     padding: "5px"
   }
 };

@@ -54,7 +54,9 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
+/******************************/
+/*  Light / Dark Mode Colors  */
+/******************************/
 :root {
   /* We default to dark mode */
   --bg-color: #242424;
@@ -74,7 +76,7 @@ body.light {
   --bg-color: #ffffff;
   --text-color: #213547;
   --border-color: #000;
-  --table-color: #ffffff;
+  --table-color: #e6e6e6;
   --text-outline: black;
   --login-color: #c6c9d2;
 

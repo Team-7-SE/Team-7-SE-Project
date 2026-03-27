@@ -26,7 +26,8 @@ function RemovePerson({ people, setPeople, closePopup }) {
         <div style={styles.overlay}>
             {/*Popup box div*/}
             <div style={styles.popup}>
-                <h2>
+                <h2 style={{color: "var(--text-invert)"}}
+                >
                     Remove Person
                 </h2>
                 {/*Dropdown to select person*/}
@@ -74,7 +75,7 @@ const styles = {
   },
   //Popup box style
   popup: {
-    backgroundColor: "white",
+    backgroundColor: "var(--bg-invert)",
     padding: "20px",
     borderRadius: "10px",
     textAlign: "center",
@@ -85,6 +86,10 @@ const styles = {
     width: "100%",
     marginBottom: "15px",
     padding: "5px"
+  },
+  select: {
+    backgroundColor: "white",
+    color: "black"
   }
 };
 
