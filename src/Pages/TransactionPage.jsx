@@ -39,10 +39,10 @@ function TransactionPage() {
 
   return (
     //Background style
-    <div style={{ backgroundColor: "#585756", minHeight: "100vh", padding: "30px" }}>
+    <div style={{ backgroundColor: "var(--bg-color)", minHeight: "100vh", padding: "30px" }}>
 
       {/*Header*/}
-      <h1 style={{ fontSize: "48px", fontWeight: "bold", color: "black", marginBottom: "25px" }}>
+      <h1 style={{ fontSize: "48px", color: "var(--text-color)", fontWeight: "bold", marginBottom: "25px", WebkitTextStroke: "2px var(--text-outline)" }}>
         Transactions Log
       </h1>
 
@@ -54,7 +54,7 @@ function TransactionPage() {
           height: "350px",
           padding: "15px",
           overflowY: "auto",
-          backgroundColor: "#cec0b6"
+          backgroundColor: "var(--table-color)"
         }}
       >
         {/*pull transactions from array and map to log*/}
@@ -66,7 +66,7 @@ function TransactionPage() {
               marginBottom: "10px",
               borderBottom: "1px solid #000000",
               paddingBottom: "5px",
-              color: "black"
+              color: "var(--text-color)"
             }}
           >
             {t.text}

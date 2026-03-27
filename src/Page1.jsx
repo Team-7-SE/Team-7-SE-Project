@@ -44,7 +44,8 @@ ________| |_
 `}
         </pre>
 
-        <div style={{ background: "white", padding: "48px", width: "340px", borderRadius: "8px", boxShadow: "0 2px 12px rgba(0,0,0,0.1)" }}>
+        <div style={{ background: "white", padding: "48px", width: "340px", borderRadius: "8px", backgroundColor: "var(--login-color)",
+           boxShadow: "0 2px 12px rgba(0,0,0,0.1)" }}>
           <h2 style={{ textAlign: "center", marginBottom: "24px", color: "black" }}>Login</h2>
 
             <input 
@@ -52,14 +53,16 @@ ________| |_
             placeholder="Email" 
             value={email} 
             onChange={(e) => { setEmail(e.target.value); setError(""); }} 
-            style={{ width: "92%", padding: "12px", marginBottom: "12px", borderRadius: "4px", border: "1px solid #ccc" }} 
+            style={{ width: "92%", padding: "12px", backgroundColor: "var(--table-color)", marginBottom: "12px", borderRadius: "4px", 
+              color: "var(--text-color)", border: "1px solid #ccc" }} 
           />
           <input 
             type="password" 
             placeholder="Password" 
             value={password} 
             onChange={(e) => { setPassword(e.target.value); setError(""); }} 
-            style={{ width: "92%", padding: "12px", marginBottom: "12px", borderRadius: "4px", border: "1px solid #ccc" }} 
+            style={{ width: "92%", padding: "12px", marginBottom: "12px", backgroundColor: "var(--table-color)", borderRadius: "4px", 
+              color: "var(--text-color)", border: "1px solid #ccc" }} 
           />
           
           {error && <p style={{ color: "red", fontSize: "14px", margin: "0 0 12px 0" }}>{error}</p>}

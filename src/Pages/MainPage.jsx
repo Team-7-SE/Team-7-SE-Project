@@ -116,14 +116,15 @@ function MainPage({ people, setPeople }) {
 
     <>
       {/*Entire Page div, used to set background color easily*/}
-      <div style={{ backgroundColor: "white" }}>
+      <div style={{ backgroundColor: "var(--bg-color)" }}>
 
 
 
         {/*Upper half of main page div*/}
         <div style={{ textAlign: "left" }}>
           {/*Displays text "Person: Total Spent"*/}
-          <p style={{ fontSize: '48px', fontWeight: "bold", color: "black", marginBottom: '10px' }}>
+          <p style={{ fontSize: '48px', fontWeight: "bold", color: "var(--text-color)", WebkitTextStroke: "2px var(--text-outline)",
+             marginBottom: '10px',  }}>
             Person: Total Spent
           </p>
           {/*Div for search bar and filter button*/}
@@ -132,7 +133,7 @@ function MainPage({ people, setPeople }) {
               type="text" placeholder="Search..."
               value={personSearch}
               onChange={(e) => setPersonSearch(e.target.value)}
-              style={{ fontSize: "19px", border: "1px solid black" }} 
+              style={{ fontSize: "19px", backgroundColor: "white", border: "1px solid black" }} 
             />
             <button onClick={()=>setShowSort(true)} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
@@ -146,7 +147,7 @@ function MainPage({ people, setPeople }) {
             )}
           </div>
           {/*Div that displays names with money spent in format Name: $*/}
-          <div style={{ border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px" }}>
+          <div style={{ border: "2px solid black", padding: "15px", width: "367px", backgroundColor: "var(--table-color)", marginBottom: "15px" }}>
             {/*Div that displays the entire array of people*/}
             <div>
               {sortedPeople.map(person => (
@@ -206,7 +207,8 @@ function MainPage({ people, setPeople }) {
         <div style={{ textAlign: "left", marginTop: "50px" }}>
           {/*Div for title text and 'add item' button*/}
           <div>
-            <span style={{ fontSize: "54px", fontWeight: "bold", marginRight: "20px", color: "black", marginBottom: '10px' }}>
+            <span style={{ fontSize: "54px", fontWeight: "bold", WebkitTextStroke: "2px var(--text-outline)", marginRight: "20px", 
+              color: "var(--text-color)", marginBottom: '10px' }}>
               Items to Buy:
             </span>
             <button onClick={() => setShowAddItem(true)} style={{ backgroundColor: "black", color: "lightblue" }}>
@@ -218,7 +220,7 @@ function MainPage({ people, setPeople }) {
           {/*Div for search bar and filter button*/}
           <div style={{ marginTop: "15px", marginBottom: "10px" }}>
             <input type="text" placeholder="Search..." value={itemSearch} 
-              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", border: "1px solid black" }} />
+              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", backgroundColor: "white", border: "1px solid black" }} />
             <button onClick={() => setShowItemSort(true)} 
               style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
@@ -232,21 +234,24 @@ function MainPage({ people, setPeople }) {
           </div>
 
           {/*Div for list of items*/}
-          <div style={{ border: "2px solid black", padding: "15px", width: "367px", marginBottom: "15px" }}>
+          <div style={{ border: "2px solid black", padding: "15px", backgroundColor: "var(--table-color)", width: "367px", marginBottom: "15px" }}>
             {sortedItems.map(item => (
-              <p key={item.id} style={{ fontSize: "28px", color: "black" }}>
+              <p key={item.id} style={{ fontSize: "28px", color: "var(--text-color)" }}>
                 {item.name}: ${item.price}
 
                 {/*mark as purchased button*/}
-                <button onClick={() => { setSelectedItem(item); setShowPurchased(true); }} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginLeft: "3px" }}>
+                <button onClick={() => { setSelectedItem(item); setShowPurchased(true); }} style={{ float: "right", fontSize: "8px", 
+                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginLeft: "3px" }}>
                   Purchased
                 </button>
 
                 {/*quantity input*/}
-                <input type="number" value={item.quantity} min="1" max="99" step="1" style={{ width: "30px", float: "right" }} />
+                <input type="number" value={item.quantity} min="1" max="99" step="1" style={{ width: "30px", backgroundColor: "var(--bg-invert)", 
+                  color: "var(--text-invert)", fontWeight: "bold", float: "right" }} />
 
                 {/*delete button*/}
-                <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontSize: "8px", border: "1px solid black", marginRight: "3px" }}>
+                <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontWeight: "bold", fontSize: "8px", 
+                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginRight: "3px" }}>
                   Delete
                 </button>
               </p>
