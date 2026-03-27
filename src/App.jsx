@@ -16,6 +16,7 @@ function App() {
       {id: 4, name: "Greg", total: 130.67},
     ]);
 
+
   return (
     <Routes>
       <Route path="/" element={<Page1 />} />
