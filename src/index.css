@@ -54,15 +54,51 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+
+:root {
+  /* We default to dark mode */
+  --bg-color: #242424;
+  --text-color: rgba(255, 255, 255, 0.87);
+  --border-color: #888;
+  --table-color: #323232;
+  --text-outline: black;
+  --login-color: #c6c9d2;
+
+  /* inverted */
+  --bg-invert: #ffffff;
+  --text-invert: #213547;
 }
+
+/* Light mode */
+body.light {
+  --bg-color: #ffffff;
+  --text-color: #213547;
+  --border-color: #000;
+  --table-color: #ffffff;
+  --text-outline: black;
+  --login-color: #c6c9d2;
+
+  /* inverted */
+  --bg-invert: #242424;
+  --text-invert: rgba(255, 255, 255, 0.87);
+}
+
+/* Dark mode */
+body.dark {
+  --bg-color: #242424;
+  --text-color: rgba(255, 255, 255, 0.87);
+  --border-color: #888;
+  --table-color: #323232;
+  --text-outline: black;
+  --login-color: #c6c9d2;
+
+  /* Inverted colors */
+  --bg-invert: #ffffff;
+  --text-invert: #213547;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
