@@ -37,7 +37,7 @@ function SortItems({ setItemSortType, closeSortPopup }) {
                 Default
                 </button>
 
-                <button onClick={closeSortPopup} style={{ marginTop: "10px", border: "1px solid black" }}>
+                <button onClick={closeSortPopup} style={{ marginTop: "10px", border: "1px solid black", color: "white" }}>
                 Cancel
                 </button>
             </div>

@@ -38,7 +38,7 @@ function SortPeople({ setSortType, closePopup }) {
           Default
         </button>
 
-        <button onClick={closePopup} style={{ marginTop: "10px", border: "1px solid black" }}>
+        <button onClick={closePopup} style={{ marginTop: "10px", border: "1px solid black", color: "white" }}>
           Cancel
         </button>
       </div>

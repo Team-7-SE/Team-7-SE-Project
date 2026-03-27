@@ -29,13 +29,13 @@ function MarkPurchased({ item, markPurchased, closePopup }) {
                 />
 
                 <div>
-                    <button onClick={handleConfirm} style={{ border: "1px solid black" }}>
+                    <button onClick={handleConfirm} style={{ border: "1px solid black", color: "white" }}>
                         Confirm
                     </button>
 
                     <button
                         onClick={closePopup}
-                        style={{ marginLeft: "10px", border: "1px solid black" }}
+                        style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}
                     >
                         Cancel
                     </button>
@@ -74,10 +74,9 @@ const styles = {
     width: "75%",
     marginBottom: "15px",
     padding: "5px",
-    backgroundColor: "var(--bg-invert)",
-    color: "var(--text-invert)",
-    border: "1px solid var(--border-color)"
-    }
+    backgroundColor: "white",
+    color: "black"
+  }
 };
 
 export default MarkPurchased;

@@ -62,13 +62,13 @@ function AddItem({ addItem, closePopup }) {
 
         <div>
           {/*Submit item button*/}
-          <button onClick={submitItem} style={{ border: "1px solid black" }}>
+          <button onClick={submitItem} style={{ border: "1px solid black", color: "white" }}>
             Submit
           </button>
 
           <button
             onClick={closePopup}
-            style={{ marginLeft: "10px", border: "1px solid black" }}
+            style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}
           >
             Cancel
           </button>

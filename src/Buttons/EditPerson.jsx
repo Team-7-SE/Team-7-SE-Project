@@ -70,10 +70,10 @@ function EditPerson({ people, setPeople, closePopup }) {
 
                 <div>
                     {/*Edit person button*/}
-                    <button onClick={editPerson} style={{border : "1px solid black"}}>
+                    <button onClick={editPerson} style={{border : "1px solid black", color: "white"}}>
                         Submit
                     </button>
-                    <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black" }}>
+                    <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}>
                         Cancel
                     </button>
                 </div>

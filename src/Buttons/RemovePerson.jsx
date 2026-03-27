@@ -47,10 +47,10 @@ function RemovePerson({ people, setPeople, closePopup }) {
                 </select>
                 <div>
                     {/*Remove person button*/}
-                    <button onClick={removePerson} style={{border : "1px solid black"}}>
+                    <button onClick={removePerson} style={{border : "1px solid black", color: "white"}}>
                         Remove
                     </button>
-                    <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black" }}>
+                    <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}>
                         Cancel
                     </button>
                 </div>

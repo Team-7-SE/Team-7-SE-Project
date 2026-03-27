@@ -57,10 +57,10 @@ function AddPerson({ people, setPeople, closePopup }) {
         />
         <div>
           {/*Add person Button*/}
-          <button onClick={addPerson} style={{border: "1px solid black"}}>
+          <button onClick={addPerson} style={{border: "1px solid black", color: "white"}}>
             Submit
           </button>
-          <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black" }}>
+          <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}>
             Cancel
           </button>
         </div>
