@@ -1,12 +1,18 @@
 import { useState } from "react";
 
-function MarkPurchased({ item, markPurchased, closePopup }) {
+function MarkPurchased({ item, markPurchased, closePopup, people }) {
 
     const [amount, setAmount] = useState(1);
+    const [selectedPerson, setSelectedPerson] = useState("");
 
     const handleConfirm = () => {
-        if (amount >= 0 && amount <= item.quantity) {
-            markPurchased(item.id, amount);
+        if (selectedPerson === "") {
+            alert("Please select a person");
+            return;
+        }
+        
+        if (amount > 0 && amount <= item.quantity) {
+            markPurchased(item.id, amount, selectedPerson);
             closePopup();
         } else {
             alert("Invalid quantity");
@@ -16,9 +22,21 @@ function MarkPurchased({ item, markPurchased, closePopup }) {
     return (
         <div style={styles.overlay}>
             <div style={styles.popup}>
-                <h2 style={{color: "var(--text-invert)"}}
-                >Amount Purchased</h2>
+                <h2 style={{color: "var(--text-invert)"}}>Purchased By:</h2>
+                <select 
+                    value={selectedPerson} 
+                    onChange={(e) => setSelectedPerson(Number(e.target.value))}
+                    style={styles.input}
+                >
+                    <option value="">Select a Person</option>
+                    {people.map((person) => (
+                        <option key={person.id} value={person.id}>
+                            {person.name}
+                        </option>
+                    ))}
+                </select>
 
+                <h2 style={{color: "var(--text-invert)"}}>Amount Purchased:</h2>
                 <input
                     type="number"
                     min="1"

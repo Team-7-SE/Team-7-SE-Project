@@ -73,17 +73,32 @@ function MainPage({ people, setPeople }) {
   };
 
   //handler for purchased button
-  const markPurchased = (id, amount) => {
+  const markPurchased = (id, amount, personId) => {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+
+    const totalCost = item.price * amount;
+
+    // update items
     setItems(prevItems =>
       prevItems
-        .map(item =>
-          item.id === id
-            ? { ...item, quantity: item.quantity - amount }
-            : item
+        .map(i =>
+          i.id === id
+            ? { ...i, quantity: i.quantity - amount }
+            : i
         )
-        .filter(item => item.quantity > 0)
+        .filter(i => i.quantity > 0)
     );
-  };
+
+    // update people
+    setPeople(prevPeople =>
+      prevPeople.map(person =>
+        person.id === Number(personId)
+          ? { ...person, total: person.total + totalCost }
+          : person
+      )
+    );
+};
 
   //function to delete from list of items
   const deleteItem = (id) => {
@@ -101,7 +116,7 @@ function MainPage({ people, setPeople }) {
       return 0;
     });
 
-  //sort people function
+  //sort items function
   const sortedItems = [...items]
     .filter(item =>
       item.name.toLowerCase().startsWith(itemSearch.toLowerCase())
@@ -257,7 +272,13 @@ function MainPage({ people, setPeople }) {
               </p>
             ))}
           </div>
-          {showPurchased && selectedItem && (<Purchased item={selectedItem} markPurchased={markPurchased} closePopup={() => setShowPurchased(false)} />)}
+          {showPurchased && selectedItem && (<Purchased 
+            item={selectedItem} 
+            markPurchased={markPurchased} 
+            closePopup={() => setShowPurchased(false)} 
+            people={people}
+            setPeople={setPeople}
+          />)}
         </div>
 
         {/* Routing button container div*/}
