@@ -103,7 +103,7 @@ function Page1() {
   };
 
   // ── render views ──────────────────────────────────────────
-
+{/*using VIEWS to display the two different pages, account login here*/}
   const renderLogin = () => (
     <>
       <h2 style={{ textAlign: "center", marginBottom: "24px", color: "black" }}>Login</h2>
@@ -135,7 +135,7 @@ function Page1() {
       </button>
     </>
   );
-
+{/*using VIEWS to display the two different pages, account create here*/}
   const renderCreate = () => (
     <>
       <h2 style={{ textAlign: "center", marginBottom: "6px", color: "black" }}>Create Account</h2>
@@ -178,7 +178,7 @@ function Page1() {
     </>
   );
 
-  // ── root render ───────────────────────────────────────────
+  // ── This is the base view ───────────────────────────────────────────
 
   return (
     <>
