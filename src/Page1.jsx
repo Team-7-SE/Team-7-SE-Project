@@ -120,6 +120,7 @@ function Page1() {
         placeholder="Password"
         value={password}
         onChange={(e) => { setPassword(e.target.value); setError(""); }}
+        onKeyDown={(e) => { if (e.key === "Enter") handleLogin(); }}
         style={inputStyle}
       />
 
