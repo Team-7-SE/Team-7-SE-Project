@@ -155,6 +155,7 @@ function Page1() {
         placeholder="Password"
         value={createPassword}
         onChange={(e) => { setCreatePassword(e.target.value); setError(""); }}
+        onKeyDown={(e) => { if (e.key === "Enter") handleCreateAccount(); }}
         style={inputStyle}
       />
       <input
