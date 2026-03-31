@@ -4,6 +4,9 @@ import Page1 from "./Page1";
 import MainPage from "./Pages/MainPage";
 import TransactionPage from "./Pages/TransactionPage";
 import AboutPage from "./Pages/AboutPage";
+import { onAuthStateChanged } from "firebase/auth"; 
+import { auth, db } from "./firebase";
+import { ref, update, onValue, get } from "firebase/database";
 
 function App() {
 
@@ -36,17 +39,55 @@ function App() {
       });
     };
 
-
-
-
     //React state array
-    const [people, setPeople] = useState([
-      {id: 0, name: "Carter", total: 35.67},
-      {id: 1, name: "Bob", total: 18.98},
-      {id: 2, name: "Kyle", total: 22.54},
-      {id: 3, name: "Erik", total: 18.30},
-      {id: 4, name: "Greg", total: 130.67},
-    ]);
+    const [people, setPeople] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const unsubscribeAuth = onAuthStateChanged(auth, async(user) => {
+
+        if(user) {
+          //Cleans email up
+          const userId = user.email.replace(/\./g,"_");
+          const userRef = ref(db, 'users/' + userId);
+          const snapshot = await get(userRef);
+
+          if(!snapshot.exists()) {
+            await update(userRef, {
+              name: user.email,
+              total: 0,
+              active: true
+            });
+          }
+          else {
+            await update(userRef, {
+              active: true
+            });
+          }
+        }
+        setLoading(false);
+      });
+      //Reads entire list for mainpage
+      const allUsersRef = ref(db, 'users');
+      const unsubscribeDb = onValue(allUsersRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+          //Converts to object in array
+          const userList = Object.keys(data).map(key => ({
+            id: key,
+            name: data[key].name,
+            active: data[key].active,
+            total: data[key].total
+          }));
+          setPeople(userList);
+        }
+      });
+      return () => {
+        unsubscribeAuth();
+        unsubscribeDb();
+      };
+    }, []);
+    
 
     // RENDERING
     //Determine which emoj to show, moon if in dark mode, sun if in light

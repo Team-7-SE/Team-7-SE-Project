@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-
+import { ref, update, get } from "firebase/database";
+import { db } from "../firebase";
 
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
@@ -73,11 +74,11 @@ function MainPage({ people, setPeople }) {
   };
 
   //handler for purchased button
-  const markPurchased = (id, amount, personId) => {
+  const markPurchased = async (id, amount, personId) => {
     const item = items.find(i => i.id === id);
     if (!item) return;
 
-    const totalCost = item.price * amount;
+    const totalCost = parseFloat(item.price) * Number(amount);
 
     // update items
     setItems(prevItems =>
@@ -90,11 +91,23 @@ function MainPage({ people, setPeople }) {
         .filter(i => i.quantity > 0)
     );
 
+    const userRef = ref(db, 'users/' + personId);
+    const snapshot = await get(userRef);
+
+    if(snapshot.exists()) {
+      const currentTotal = Number(snapshot.val().total) || 0;
+      const newTotal = currentTotal + totalCost;
+      
+      await update(userRef, {
+        total: newTotal
+      })
+    }
+
     // update people
     setPeople(prevPeople =>
       prevPeople.map(person =>
-        person.id === Number(personId)
-          ? { ...person, total: person.total + totalCost }
+        person.id === personId
+          ? { ...person, total: (Number(person.total) || 0) + totalCost }
           : person
       )
     );
@@ -107,9 +120,11 @@ function MainPage({ people, setPeople }) {
 
   //sort people function
   const sortedPeople = [...people]
-    .filter(person =>
-      person.name.toLowerCase().startsWith(personSearch.toLowerCase())
-    )
+    .filter(person => {
+      const isActive = person.active !== false && String(person.active) !== "false";
+      const matchesSearch = person.name?.toLowerCase().startsWith(personSearch.toLowerCase());
+      return isActive && matchesSearch;
+    })
     .sort((a,b) => {
       if(sortType === "min") return a.total-b.total;
       if(sortType === "max") return b.total-a.total;
@@ -167,7 +182,7 @@ function MainPage({ people, setPeople }) {
             <div>
               {sortedPeople.map(person => (
                 <p key={person.id} style={{fontSize: "28px"}}>
-                  {person.name}: ${person.total}
+                  {person.name?.includes('@') ? person.name.split('@')[0] : person.name}: ${person.total?.toFixed(2) || "0.00"}
                 </p>
               ))}
             </div>
@@ -200,7 +215,7 @@ function MainPage({ people, setPeople }) {
             )}
             {/*Routes to EditPerson page to peform function of editing a person*/}
             <button onClick={() => setShowEditPerson(true)} style={{ backgroundColor: 'black', color: 'white' }}>
-              Edit Person
+              Edit Name
             </button>
             {/*Pop up edit person*/}
             {showEditPerson && (

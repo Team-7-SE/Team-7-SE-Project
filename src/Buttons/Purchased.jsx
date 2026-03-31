@@ -25,13 +25,13 @@ function MarkPurchased({ item, markPurchased, closePopup, people }) {
                 <h2 style={{color: "var(--text-invert)"}}>Purchased By:</h2>
                 <select 
                     value={selectedPerson} 
-                    onChange={(e) => setSelectedPerson(Number(e.target.value))}
+                    onChange={(e) => setSelectedPerson(e.target.value)}
                     style={styles.input}
                 >
                     <option value="">Select a Person</option>
                     {people.map((person) => (
                         <option key={person.id} value={person.id}>
-                            {person.name}
+                            {person.name?.includes('@') ? person.name.split('@')[0] : person.name}
                         </option>
                     ))}
                 </select>

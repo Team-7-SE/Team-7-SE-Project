@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ref, update } from "firebase/database";
+import { db } from "../firebase";
 
 //Pop up function to remove person from our list
 function RemovePerson({ people, setPeople, closePopup }) {
@@ -13,12 +15,15 @@ function RemovePerson({ people, setPeople, closePopup }) {
             return;
         }
 
-        //Removes the actual person
-        setPeople(prev => prev.filter(person => person.id !== parseInt(selectedId)));
+        //Points to specific user in df folder
+        const userRef = ref(db, 'users/' + selectedId);
 
-        //Reset selection and closes popup
-        setSelectedId("");
-        closePopup();
+        //Active = false in db
+        update(userRef, {
+            active:false
+        }).then(() => {
+            closePopup();
+        });
     };
 
     //Return pop up of div
@@ -39,7 +44,7 @@ function RemovePerson({ people, setPeople, closePopup }) {
                     <option value="">--
                         Select a Person
                     </option>
-                    {people.map(person => (
+                    {people.filter(person=>person.active!==false).map(person => (
                         <option key={person.id} value={person.id}>
                             {person.name}
                         </option>

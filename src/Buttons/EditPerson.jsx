@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ref, update } from "firebase/database";
+import { db } from "../firebase";
 
 //Pop up function to edit person from our list
 function EditPerson({ people, setPeople, closePopup }) {
@@ -10,16 +12,19 @@ function EditPerson({ people, setPeople, closePopup }) {
     const [newName, setNewName] = useState("");
 
     //Function that edits person from our list
-    const editPerson = () => {
+    const editPerson = async () => {
         //If nothing, return
         if (selectedId === "" || newName === "") {
             return;
         }
 
+        const userRef = ref(db, 'users/' + selectedId);
+        await update(userRef, {name: newName});
+
         //Edits the actual person
         setPeople(prev =>
             prev.map(person =>
-                person.id !== parseInt(selectedId)
+                String(person.id) !== String(selectedId)
                     ? person
                     : { ...person, name: newName }
             )
@@ -38,7 +43,7 @@ function EditPerson({ people, setPeople, closePopup }) {
             <div style={styles.popup}>
                 <h2 style= {{color: "var(--text-invert)"}}
                 >
-                    Edit Person
+                    Edit Name
                 </h2>
 
                 {/* MOSTLY COPIED FROM REMOVE PERSON*/}
@@ -54,7 +59,7 @@ function EditPerson({ people, setPeople, closePopup }) {
                     </option>
                     {people.map(person => (
                         <option key={person.id} value={person.id}>
-                            {person.name}
+                            {person.name?.includes('@') ? person.name.split('@')[0] : person.name}
                         </option>
                     ))}
                 </select>
