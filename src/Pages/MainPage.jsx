@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { ref, update, get } from "firebase/database";
+import { ref, update, get, push, remove } from "firebase/database";
 import { db } from "../firebase";
-import { push } from "firebase/database";
 
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
@@ -137,7 +136,13 @@ function MainPage({ people, setPeople }) {
 };
 
   //function to delete from list of items
-  const deleteItem = (id) => {
+  const deleteItem = async (id) => {
+    //References item in db
+    const itemRef = ref(db, `items/${id}`);
+
+    //removes item
+    await remove(itemRef)
+
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
