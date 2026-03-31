@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function MarkPurchased({ item, markPurchased, closePopup, people }) {
+function MarkPurchased({ item, markPurchased, closePopup, people, addTransaction }) {
 
     const [amount, setAmount] = useState(1);
     const [selectedPerson, setSelectedPerson] = useState("");
@@ -13,6 +13,7 @@ function MarkPurchased({ item, markPurchased, closePopup, people }) {
         
         if (amount > 0 && amount <= item.quantity) {
             markPurchased(item.id, amount, selectedPerson);
+            addTransaction(item, amount, selectedPerson, people);
             closePopup();
         } else {
             alert("Invalid quantity");

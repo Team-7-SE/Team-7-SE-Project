@@ -3,18 +3,7 @@ import {useEffect} from "react";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import { auth } from "../firebase";
 
-function TransactionPage() {
-
-  //Array of tansactions
-  const transactions = [
-    { id: 1, text: "Carter — 6 rolls of toilet paper — $5.99" },
-    { id: 2, text: "Carter — Dish soap — $4.50" },
-    { id: 3, text: "Carter — Paper towels (2) — $7.00" },
-    { id: 4, text: "Carter — Chair — $10.00" },
-    { id: 5, text: "Carter — Laundry detergent — $12.75" },
-    { id: 6, text: "Carter — Carter 2 - $67.00" }
-  ];
-
+function TransactionPage({ transactions }) {
   {/*useNavigate hook for routing back to login page on logout button click*/ }
   const navigate = useNavigate();
 

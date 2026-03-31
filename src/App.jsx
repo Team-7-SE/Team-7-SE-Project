@@ -9,6 +9,29 @@ import { auth, db } from "./firebase";
 import { ref, update, onValue, get } from "firebase/database";
 
 function App() {
+  //Array of tansactions
+  const [transactions, setTransactions] = useState([
+    { id: 1, text: "Carter — 6 rolls of toilet paper — $5.99" },
+    { id: 2, text: "Carter — Dish soap — $4.50" },
+    { id: 3, text: "Carter — Paper towels (2) — $7.00" },
+    { id: 4, text: "Carter — Chair — $10.00" },
+    { id: 5, text: "Carter — Laundry detergent — $12.75" },
+    { id: 6, text: "Carter — Carter 2 - $67.00" }
+  ]);
+
+  //Update transactions
+  const addTransaction = (item, amount, personId, people) => {
+    const person = people.find(p => p.id === personId);
+
+    const name = person?.name?.includes('@') ? person.name.split('@')[0] : person?.name;
+
+    const newTransaction = {
+      id: Date.now(),
+      text: `${name} — ${item.name} (${amount}) — $${(item.price * amount).toFixed(2)}`
+    };
+
+    setTransactions(prev => [...prev, newTransaction]);
+  };
 
     //DARK & LIGHT MODE STUFF
     //Holds current themem state, light or dark
@@ -110,8 +133,8 @@ function App() {
 
     <Routes>
       <Route path="/" element={<Page1 />} />
-      <Route path="/main" element={<MainPage people={people} setPeople={setPeople}/>} />
-      <Route path="/transaction" element={<TransactionPage />} />
+      <Route path="/main" element={<MainPage people={people} setPeople={setPeople} addTransaction={addTransaction}/>} />
+      <Route path="/transaction" element={<TransactionPage transactions={transactions}/>} />
       <Route path="/readme" element={<AboutPage />} />
     </Routes>
     </>

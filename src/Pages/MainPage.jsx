@@ -14,7 +14,7 @@ import SortPeople from "../Buttons/SortPeople";
 import SortItems from "../Buttons/SortItems";
 
 
-function MainPage({ people, setPeople }) {
+function MainPage({ people, setPeople, addTransaction }) {
 
   const navigate = useNavigate();
   const [showAddPerson, setShowAddPerson] = useState(false);
@@ -291,8 +291,8 @@ function MainPage({ people, setPeople }) {
               )}
           </div>
 
-          {/*Div for list of items*/}
-          <div style={{ border: "2px solid black", padding: "15px", backgroundColor: "var(--table-color)", width: "367px", marginBottom: "15px" }}>
+          {/*Div for list of items (need to change formatting style to better suit items with large names)*/}
+          <div style={{ border: "2px solid black", padding: "15px", backgroundColor: "var(--table-color)", width: "767px", marginBottom: "15px" }}>
             {sortedItems.map(item => (
               <p key={item.id} style={{ fontSize: "28px", color: "var(--text-color)" }}>
                 {item.name}: ${item.price}
@@ -304,7 +304,7 @@ function MainPage({ people, setPeople }) {
                 </button>
 
                 {/*quantity input*/}
-                <input type="number" value={item.quantity} min="1" max="99" step="1" style={{ width: "30px", backgroundColor: "var(--bg-invert)", 
+                <input type="number" value={item.quantity} min="1" max="999" step="1" style={{ width: "40px", backgroundColor: "var(--bg-invert)", 
                   color: "var(--text-invert)", fontWeight: "bold", float: "right" }} />
 
                 {/*delete button*/}
@@ -321,6 +321,7 @@ function MainPage({ people, setPeople }) {
             closePopup={() => setShowPurchased(false)} 
             people={people}
             setPeople={setPeople}
+            addTransaction={addTransaction}
           />)}
         </div>
 
