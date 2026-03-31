@@ -73,18 +73,18 @@ function MainPage({ people, setPeople }) {
 
   //handler for add item button
   const addItem = async (item) => {
-  const itemsRef = ref(db, 'items');
-  const newItemRef = push(itemsRef);
+    const itemsRef = ref(db, 'items');
+    const newItemRef = push(itemsRef);
 
-  const newItemData = {
-    name: item.name,
-    price: parseFloat(item.price),
-    quantity: Number(item.quantity)
-  };
+    const newItemData = {
+      name: item.name,
+      price: parseFloat(item.price),
+      quantity: Number(item.quantity)
+    };
 
-  await update(newItemRef, newItemData);
-  
-  setItems(prev => [...prev, { id: newItemRef.key, ...newItemData }]);
+    await update(newItemRef, newItemData);
+    
+    setItems(prev => [...prev, { id: newItemRef.key, ...newItemData }]);
 };
 
   //handler for purchased button
