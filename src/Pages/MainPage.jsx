@@ -4,6 +4,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { ref, update, get } from "firebase/database";
 import { db } from "../firebase";
+import { push } from "firebase/database";
 
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
@@ -50,28 +51,41 @@ function MainPage({ people, setPeople }) {
   }
 
   //array for list of items
-  const [items, setItems] = useState([
-    { id: 0, name: "Dish Soap", price: 5.00, quantity: 2 },
-    { id: 1, name: "Chair", price: 10.00, quantity: 1 },
-    { id: 2, name: "Paper Towels", price: 3.00, quantity: 6 }
-  ]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+  const itemsRef = ref(db, 'items');
+  get(itemsRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      //Firebase objective to array conversion
+      const itemsList = Object.keys(data).map(key => ({
+        id: key,
+        ...data[key]
+      }));
+      setItems(itemsList);
+    }
+  });
+}, []);
 
   //generates new id's for items
   const [nextItemID, setNextItemID] = useState(3);
 
   //handler for add item button
-  const addItem = (item) => {
-    setItems(prev => [
-      ...prev,
-      {
-        id: nextItemID,
-        name: item.name,
-        price: parseFloat(item.price),
-        quantity: item.quantity
-      }
-    ]);
-    setNextItemID(prev => prev + 1);
+  const addItem = async (item) => {
+  const itemsRef = ref(db, 'items');
+  const newItemRef = push(itemsRef);
+
+  const newItemData = {
+    name: item.name,
+    price: parseFloat(item.price),
+    quantity: Number(item.quantity)
   };
+
+  await update(newItemRef, newItemData);
+  
+  setItems(prev => [...prev, { id: newItemRef.key, ...newItemData }]);
+};
 
   //handler for purchased button
   const markPurchased = async (id, amount, personId) => {
@@ -79,6 +93,15 @@ function MainPage({ people, setPeople }) {
     if (!item) return;
 
     const totalCost = parseFloat(item.price) * Number(amount);
+    const newQuantity = item.quantity-amount;
+    const itemRef = ref(db, 'items/'+id);
+
+    if(newQuantity <= 0) {
+      await update(ref(db, 'items'), {[id]:null});
+    }
+    else {
+      await update(itemRef, {quantity: newQuantity});
+    }
 
     // update items
     setItems(prevItems =>
