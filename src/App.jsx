@@ -10,14 +10,7 @@ import { ref, update, onValue, get } from "firebase/database";
 
 function App() {
   //Array of tansactions
-  const [transactions, setTransactions] = useState([
-    { id: 1, text: "Carter — 6 rolls of toilet paper — $5.99" },
-    { id: 2, text: "Carter — Dish soap — $4.50" },
-    { id: 3, text: "Carter — Paper towels (2) — $7.00" },
-    { id: 4, text: "Carter — Chair — $10.00" },
-    { id: 5, text: "Carter — Laundry detergent — $12.75" },
-    { id: 6, text: "Carter — Carter 2 - $67.00" }
-  ]);
+  const [transactions, setTransactions] = useState([]);
 
   //Update transactions
   const addTransaction = (item, amount, personId, people) => {
