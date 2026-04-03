@@ -292,7 +292,7 @@ function MainPage({ people, setPeople, addTransaction }) {
           </div>
 
           {/*Div for list of items (need to change formatting style to better suit items with large names)*/}
-          <div style={{ border: "2px solid black", padding: "15px", backgroundColor: "var(--table-color)", width: "767px", marginBottom: "15px" }}>
+          <div style={{ border: "2px solid black", padding: "15px", backgroundColor: "var(--table-color)", width: "425px", marginBottom: "15px" }}>
             {sortedItems.map(item => (
               <p key={item.id} style={{ fontSize: "28px", color: "var(--text-color)" }}>
                 {item.name}: ${item.price}
