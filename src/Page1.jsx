@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "./firebase";
 import './App.css';
 
@@ -9,18 +9,18 @@ const VIEWS = { LOGIN: "login", CREATE: "create" };
 function Page1() {
   const navigate = useNavigate();
 
-  const [view, setView]       = useState(VIEWS.LOGIN);
-  const [error, setError]     = useState("");
+  const [view, setView] = useState(VIEWS.LOGIN);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   // ── login state ───────────────────────────────────────────
-  const [email, setEmail]       = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // ── create account state ──────────────────────────────────
-  const [createEmail, setCreateEmail]       = useState("");
+  const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
-  const [createConfirm, setCreateConfirm]   = useState("");
+  const [createConfirm, setCreateConfirm] = useState("");
 
   // ── helpers ───────────────────────────────────────────────
   const switchView = (v) => { setView(v); setError(""); };
@@ -42,8 +42,8 @@ function Page1() {
 
   const handleCreateAccount = async () => {
     setError("");
-    if (!createEmail.trim())              return setError("Please enter an email.");
-    if (createPassword.length < 6)        return setError("Password must be at least 6 characters.");
+    if (!createEmail.trim()) return setError("Please enter an email.");
+    if (createPassword.length < 6) return setError("Password must be at least 6 characters.");
     if (createPassword !== createConfirm) return setError("Passwords do not match.");
 
     setLoading(true);
@@ -53,6 +53,20 @@ function Page1() {
       navigate("/main");
     } catch (err) {
       setError(err.message || "Could not create account.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setError("");
+    if (!email.trim()) return setError("Enter your email above, then click Forgot Password.");
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setError("✓ Reset email sent! Check your inbox."); // reusing error state for feedback
+    } catch (err) {
+      setError("Could not send reset email. Check the address and try again.");
     } finally {
       setLoading(false);
     }
@@ -103,7 +117,7 @@ function Page1() {
   };
 
   // ── render views ──────────────────────────────────────────
-{/*using VIEWS to display the two different pages, account login here*/}
+  {/*using VIEWS to display the two different pages, account login here*/ }
   const renderLogin = () => (
     <>
       <h2 style={{ textAlign: "center", marginBottom: "24px", color: "black" }}>Login</h2>
@@ -130,12 +144,16 @@ function Page1() {
         {loading ? "Logging in…" : "Login"}
       </button>
 
+      <button onClick={handleResetPassword} disabled={loading} style={linkBtnStyle}>
+        Forgot password?
+      </button>
+
       <button style={linkBtnStyle} onClick={() => switchView(VIEWS.CREATE)}>
         Create household account
       </button>
     </>
   );
-{/*using VIEWS to display the two different pages, account create here*/}
+  {/*using VIEWS to display the two different pages, account create here*/ }
   const renderCreate = () => (
     <>
       <h2 style={{ textAlign: "center", marginBottom: "6px", color: "black" }}>Create Account</h2>
@@ -198,7 +216,7 @@ ________| |_
         </pre>
 
         <div style={cardStyle}>
-          {view === VIEWS.LOGIN  && renderLogin()}
+          {view === VIEWS.LOGIN && renderLogin()}
           {view === VIEWS.CREATE && renderCreate()}
         </div>
 
