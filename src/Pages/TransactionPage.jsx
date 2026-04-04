@@ -46,21 +46,44 @@ function TransactionPage({ transactions }) {
           backgroundColor: "var(--table-color)"
         }}
       >
-        {/*pull transactions from array and map to log*/}
+        {/*transaction grid display headers*/}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            fontWeight: "bold",
+            borderBottom: "2px solid black",
+            paddingBottom: "5px",
+            marginBottom: "10px",
+            color: "var(--text-color)"
+          }}
+        >
+          <div>Name</div>
+          <div>Item</div>
+          <div>Amount</div>
+          <div>Total Cost</div>
+        </div>
+
+        {/*transaction grid display individual formatting*/}
         {transactions.map(t => (
-          <p
+          <div
             key={t.id}
             style={{
-              fontSize: "20px",
-              marginBottom: "10px",
-              borderBottom: "1px solid #000000",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              marginBottom: "8px",
               paddingBottom: "5px",
+              borderBottom: "1px solid black",
               color: "var(--text-color)"
             }}
           >
-            {t.text}
-          </p>
+            <div>{t.name}</div>
+            <div>{t.item}</div>
+            <div>{t.amount}</div>
+            <div>{t.cost}</div>
+          </div>
         ))}
+
       </div>
 
       {/* Routing button container div*/}

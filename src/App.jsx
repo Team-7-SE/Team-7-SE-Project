@@ -18,9 +18,13 @@ function App() {
 
     const name = person?.name?.includes('@') ? person.name.split('@')[0] : person?.name;
 
+    //split each transaction up for grid display
     const newTransaction = {
-      id: Date.now(),
-      text: `${name} — ${item.name} (${amount}) — $${(item.price * amount).toFixed(2)}`
+      id: Date.now(), //temp fix
+      name: `${name}`,
+      item: `${item.name}`,
+      amount: `${amount}`,
+      cost: `$${(item.price * amount).toFixed(2)}`
     };
 
     setTransactions(prev => [...prev, newTransaction]);
