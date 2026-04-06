@@ -48,7 +48,8 @@ function MainPage({ people, setPeople, addTransaction }) {
         navigate("/");
       })
   }
-
+ FAIL THE TEST 
+ 
   //array for list of items
   const [items, setItems] = useState([]);
 
