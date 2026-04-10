@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { AVATARS } from "../avatars";
 
 //Pop up function to add new person to our list
 function AddPerson({ people, setPeople, closePopup }) {
 
   //State used to store typed name
   const [newName, setNewName] = useState("");
+  const [avatar, setAvatar] = useState("🤡");
 
   //Function that adds person to the list
   const addPerson = () => {
@@ -15,8 +17,8 @@ function AddPerson({ people, setPeople, closePopup }) {
 
     //Sets newID to proper index;
     let newId;
-    if(people.length > 0) {
-      newId = people[people.length-1].id + 1;
+    if (people.length > 0) {
+      newId = people[people.length - 1].id + 1;
     }
     else {
       newId = 0;
@@ -26,7 +28,8 @@ function AddPerson({ people, setPeople, closePopup }) {
     const newPerson = {
       id: newId,
       name: newName,
-      total: 0
+      total: 0,
+      avatar: avatar
     };
 
     //array = array + newPerson
@@ -42,7 +45,7 @@ function AddPerson({ people, setPeople, closePopup }) {
     <div style={styles.overlay}>
       {/*Popup box div*/}
       <div style={styles.popup}>
-        <h2 style={{color: "var(--text-invert)"}}
+        <h2 style={{ color: "var(--text-invert)" }}
         >
           Add Person
         </h2>
@@ -55,9 +58,30 @@ function AddPerson({ people, setPeople, closePopup }) {
           onChange={(e) => setNewName(e.target.value)}
           style={styles.input}
         />
+        {/* Avatar picker */}
+        <p style={{ color: "var(--text-invert)", marginBottom: "8px" }}>Pick an avatar:</p>
+        <div style={{
+          display: "flex", flexWrap: "wrap", gap: "6px",
+          maxWidth: "260px", marginBottom: "15px", justifyContent: "center"
+        }}>
+          {AVATARS.map(a => (
+            <span
+              key={a}
+              onClick={() => setAvatar(a)}
+              style={{
+                fontSize: "24px", cursor: "pointer", padding: "4px",
+                borderRadius: "4px",
+                background: avatar === a ? "rgba(255,255,255,0.3)" : "transparent",
+                outline: avatar === a ? "2px solid white" : "none"
+              }}
+            >
+              {a}
+            </span>
+          ))}
+        </div>
         <div>
           {/*Add person Button*/}
-          <button onClick={addPerson} style={{border: "1px solid black", color: "white"}}>
+          <button onClick={addPerson} style={{ border: "1px solid black", color: "white" }}>
             Submit
           </button>
           <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}>

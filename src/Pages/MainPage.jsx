@@ -30,13 +30,13 @@ function MainPage({ people, setPeople, addTransaction }) {
   const [sortType, setSortType] = useState("default");
   const [showItemSort, setShowItemSort] = useState(false);
   const [itemSortType, setItemSortType] = useState("default");
-  const [avatar, setAvatar] = useState("🧑");
+  const [avatar, setAvatar] = useState("🤡");
 
   //Route protection so u cant just copy paste link to home page bypassing login
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       //Takes to login page (security feature)
-      if(!user) {
+      if (!user) {
         navigate("/");
       }
     });
@@ -55,19 +55,19 @@ function MainPage({ people, setPeople, addTransaction }) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-  const itemsRef = ref(db, 'items');
-  get(itemsRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      //Firebase objective to array conversion
-      const itemsList = Object.keys(data).map(key => ({
-        id: key,
-        ...data[key]
-      }));
-      setItems(itemsList);
-    }
-  });
-}, []);
+    const itemsRef = ref(db, 'items');
+    get(itemsRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        //Firebase objective to array conversion
+        const itemsList = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        setItems(itemsList);
+      }
+    });
+  }, []);
 
   //generates new id's for items
   const [nextItemID, setNextItemID] = useState(3);
@@ -84,9 +84,9 @@ function MainPage({ people, setPeople, addTransaction }) {
     };
 
     await update(newItemRef, newItemData);
-    
+
     setItems(prev => [...prev, { id: newItemRef.key, ...newItemData }]);
-};
+  };
 
   //handler for purchased button
   const markPurchased = async (id, amount, personId) => {
@@ -94,14 +94,14 @@ function MainPage({ people, setPeople, addTransaction }) {
     if (!item) return;
 
     const totalCost = parseFloat(item.price) * Number(amount);
-    const newQuantity = item.quantity-amount;
-    const itemRef = ref(db, 'items/'+id);
+    const newQuantity = item.quantity - amount;
+    const itemRef = ref(db, 'items/' + id);
 
-    if(newQuantity <= 0) {
-      await update(ref(db, 'items'), {[id]:null});
+    if (newQuantity <= 0) {
+      await update(ref(db, 'items'), { [id]: null });
     }
     else {
-      await update(itemRef, {quantity: newQuantity});
+      await update(itemRef, { quantity: newQuantity });
     }
 
     // update items
@@ -118,10 +118,10 @@ function MainPage({ people, setPeople, addTransaction }) {
     const userRef = ref(db, 'users/' + personId);
     const snapshot = await get(userRef);
 
-    if(snapshot.exists()) {
+    if (snapshot.exists()) {
       const currentTotal = Number(snapshot.val().total) || 0;
       const newTotal = currentTotal + totalCost;
-      
+
       await update(userRef, {
         total: newTotal
       })
@@ -135,7 +135,7 @@ function MainPage({ people, setPeople, addTransaction }) {
           : person
       )
     );
-};
+  };
 
   //function to delete from list of items
   const deleteItem = async (id) => {
@@ -155,9 +155,9 @@ function MainPage({ people, setPeople, addTransaction }) {
       const matchesSearch = person.name?.toLowerCase().startsWith(personSearch.toLowerCase());
       return isActive && matchesSearch;
     })
-    .sort((a,b) => {
-      if(sortType === "min") return a.total-b.total;
-      if(sortType === "max") return b.total-a.total;
+    .sort((a, b) => {
+      if (sortType === "min") return a.total - b.total;
+      if (sortType === "max") return b.total - a.total;
       return 0;
     });
 
@@ -167,8 +167,8 @@ function MainPage({ people, setPeople, addTransaction }) {
       item.name.toLowerCase().startsWith(itemSearch.toLowerCase())
     )
     .sort((a, b) => {
-      if(itemSortType === "min") return a.price-b.price;
-      if(itemSortType === "max") return b.price-a.price;
+      if (itemSortType === "min") return a.price - b.price;
+      if (itemSortType === "max") return b.price - a.price;
       return 0;
     });
 
@@ -183,8 +183,10 @@ function MainPage({ people, setPeople, addTransaction }) {
         {/*Upper half of main page div*/}
         <div style={{ textAlign: "left" }}>
           {/*Displays text "Person: Total Spent"*/}
-          <p style={{ fontSize: '48px', fontWeight: "bold", color: "var(--text-color)", WebkitTextStroke: "2px var(--text-outline)",
-             marginBottom: '10px',  }}>
+          <p style={{
+            fontSize: '48px', fontWeight: "bold", color: "var(--text-color)", WebkitTextStroke: "2px var(--text-outline)",
+            marginBottom: '10px',
+          }}>
             Person: Total Spent
           </p>
           {/*Div for search bar and filter button*/}
@@ -193,16 +195,16 @@ function MainPage({ people, setPeople, addTransaction }) {
               type="text" placeholder="Search..."
               value={personSearch}
               onChange={(e) => setPersonSearch(e.target.value)}
-              style={{ fontSize: "19px", backgroundColor: "white", color: "black", border: "1px solid black" }} 
+              style={{ fontSize: "19px", backgroundColor: "white", color: "black", border: "1px solid black" }}
             />
-            <button onClick={()=>setShowSort(true)} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
+            <button onClick={() => setShowSort(true)} style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
             </button>
             {/*Pop up filter person*/}
             {showSort && (
               <SortPeople
                 setSortType={setSortType}
-                closePopup={()=>setShowSort(false)}
+                closePopup={() => setShowSort(false)}
               />
             )}
           </div>
@@ -211,7 +213,8 @@ function MainPage({ people, setPeople, addTransaction }) {
             {/*Div that displays the entire array of people*/}
             <div>
               {sortedPeople.map(person => (
-                <p key={person.id} style={{fontSize: "28px"}}>
+                <p key={person.id} style={{ fontSize: "28px" }}>
+                  <span style={{ marginRight: "8px" }}>{person.avatar || "🧑"}</span>
                   {person.name?.includes('@') ? person.name.split('@')[0] : person.name}: ${person.total?.toFixed(2) || "0.00"}
                 </p>
               ))}
@@ -228,6 +231,7 @@ function MainPage({ people, setPeople, addTransaction }) {
               <AddPerson
                 people={people}
                 setPeople={setPeople}
+
                 closePopup={() => setShowAddPerson(false)}
               />
             )}
@@ -240,12 +244,13 @@ function MainPage({ people, setPeople, addTransaction }) {
               <RemovePerson
                 people={people}
                 setPeople={setPeople}
+
                 closePopup={() => setShowRemovePerson(false)}
               />
             )}
             {/*Routes to EditPerson page to peform function of editing a person*/}
             <button onClick={() => setShowEditPerson(true)} style={{ backgroundColor: 'black', color: 'white' }}>
-              Edit Name
+              Edit Person
             </button>
             {/*Pop up edit person*/}
             {showEditPerson && (
@@ -267,8 +272,10 @@ function MainPage({ people, setPeople, addTransaction }) {
         <div style={{ textAlign: "left", marginTop: "50px" }}>
           {/*Div for title text and 'add item' button*/}
           <div>
-            <span style={{ fontSize: "54px", fontWeight: "bold", WebkitTextStroke: "2px var(--text-outline)", marginRight: "20px", 
-              color: "var(--text-color)", marginBottom: '10px' }}>
+            <span style={{
+              fontSize: "54px", fontWeight: "bold", WebkitTextStroke: "2px var(--text-outline)", marginRight: "20px",
+              color: "var(--text-color)", marginBottom: '10px'
+            }}>
               Items to Buy:
             </span>
             <button onClick={() => setShowAddItem(true)} style={{ backgroundColor: "black", color: "lightblue" }}>
@@ -279,18 +286,18 @@ function MainPage({ people, setPeople, addTransaction }) {
 
           {/*Div for search bar and filter button*/}
           <div style={{ marginTop: "15px", marginBottom: "10px" }}>
-            <input type="text" placeholder="Search..." value={itemSearch} 
-              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", backgroundColor: "white", color:"black", border: "1px solid black" }} />
-            <button onClick={() => setShowItemSort(true)} 
+            <input type="text" placeholder="Search..." value={itemSearch}
+              onChange={(e) => setItemSearch(e.target.value)} style={{ fontSize: "19px", backgroundColor: "white", color: "black", border: "1px solid black" }} />
+            <button onClick={() => setShowItemSort(true)}
               style={{ fontSize: "13px", backgroundColor: 'white', color: 'black', border: "1px solid black", marginLeft: "10px" }}>
               Filter
             </button>
-              {showItemSort && (
-                <SortItems
-                  setItemSortType={setItemSortType}
-                  closeSortPopup={() => setShowItemSort(false)}
-                />
-              )}
+            {showItemSort && (
+              <SortItems
+                setItemSortType={setItemSortType}
+                closeSortPopup={() => setShowItemSort(false)}
+              />
+            )}
           </div>
 
           {/*Div for list of items (need to change formatting style to better suit items with large names)*/}
@@ -300,27 +307,33 @@ function MainPage({ people, setPeople, addTransaction }) {
                 {item.name}: ${item.price}
 
                 {/*mark as purchased button*/}
-                <button onClick={() => { setSelectedItem(item); setShowPurchased(true); }} style={{ float: "right", fontSize: "8px", 
-                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginLeft: "3px" }}>
+                <button onClick={() => { setSelectedItem(item); setShowPurchased(true); }} style={{
+                  float: "right", fontSize: "8px",
+                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginLeft: "3px"
+                }}>
                   Purchased
                 </button>
 
                 {/*quantity input*/}
-                <input type="number" value={item.quantity} min="1" max="999" step="1" style={{ width: "40px", backgroundColor: "var(--bg-invert)", 
-                  color: "var(--text-invert)", fontWeight: "bold", float: "right" }} />
+                <input type="number" value={item.quantity} min="1" max="999" step="1" style={{
+                  width: "40px", backgroundColor: "var(--bg-invert)",
+                  color: "var(--text-invert)", fontWeight: "bold", float: "right"
+                }} />
 
                 {/*delete button*/}
-                <button onClick={() => deleteItem(item.id)} style={{ float: "right", fontWeight: "bold", fontSize: "8px", 
-                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginRight: "3px" }}>
+                <button onClick={() => deleteItem(item.id)} style={{
+                  float: "right", fontWeight: "bold", fontSize: "8px",
+                  backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginRight: "3px"
+                }}>
                   Delete
                 </button>
               </p>
             ))}
           </div>
-          {showPurchased && selectedItem && (<Purchased 
-            item={selectedItem} 
-            markPurchased={markPurchased} 
-            closePopup={() => setShowPurchased(false)} 
+          {showPurchased && selectedItem && (<Purchased
+            item={selectedItem}
+            markPurchased={markPurchased}
+            closePopup={() => setShowPurchased(false)}
             people={people}
             setPeople={setPeople}
             addTransaction={addTransaction}
