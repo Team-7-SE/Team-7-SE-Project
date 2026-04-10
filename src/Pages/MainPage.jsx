@@ -4,6 +4,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { ref, update, get, push, remove } from "firebase/database";
 import { db } from "../firebase";
+import { AVATARS } from "../avatars";
 
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
@@ -29,6 +30,7 @@ function MainPage({ people, setPeople, addTransaction }) {
   const [sortType, setSortType] = useState("default");
   const [showItemSort, setShowItemSort] = useState(false);
   const [itemSortType, setItemSortType] = useState("default");
+  const [avatar, setAvatar] = useState("🧑");
 
   //Route protection so u cant just copy paste link to home page bypassing login
   useEffect(() => {
