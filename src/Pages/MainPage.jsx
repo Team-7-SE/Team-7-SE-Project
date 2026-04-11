@@ -31,6 +31,8 @@ function MainPage({ people, setPeople, addTransaction }) {
   const [showItemSort, setShowItemSort] = useState(false);
   const [itemSortType, setItemSortType] = useState("default");
   const [avatar, setAvatar] = useState("🤡");
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   //Route protection so u cant just copy paste link to home page bypassing login
   useEffect(() => {
@@ -137,9 +139,24 @@ function MainPage({ people, setPeople, addTransaction }) {
     );
   };
 
+  //handler for confirm item deletion
+  const handleConfirmDelete = async () => {
+    if (itemToDelete) {
+      await deleteItem(itemToDelete.id);
+      setShowDeleteConfirm(false);
+      setItemToDelete(null);
+    }
+  };
+
+  //handler for cancel item deletion
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setItemToDelete(null);
+  };
+
   //function to delete from list of items
   const deleteItem = async (id) => {
-    //References item in db
+    //references item in db
     const itemRef = ref(db, `items/${id}`);
 
     //removes item
@@ -321,7 +338,7 @@ function MainPage({ people, setPeople, addTransaction }) {
                 }} />
 
                 {/*delete button*/}
-                <button onClick={() => deleteItem(item.id)} style={{
+                <button onClick={() => {setItemToDelete(item); setShowDeleteConfirm(true);}} style={{
                   float: "right", fontWeight: "bold", fontSize: "8px",
                   backgroundColor: "var(--bg-color)", color: "var(--text-color)", border: "1px solid black", marginRight: "3px"
                 }}>
@@ -338,6 +355,32 @@ function MainPage({ people, setPeople, addTransaction }) {
             setPeople={setPeople}
             addTransaction={addTransaction}
           />)}
+
+          {showDeleteConfirm && itemToDelete && (
+            <div style={styles.overlay}>
+              <div style={styles.popup}>
+                <h2 style={{ color: "var(--text-invert)" }}>
+                  Are you sure you want to delete all "{itemToDelete.name}"?
+                </h2>
+
+                <div>
+                  <button
+                    onClick={handleConfirmDelete}
+                    style={{ border: "1px solid black", color: "white" }}
+                  >
+                    Confirm
+                  </button>
+
+                  <button
+                    onClick={handleCancelDelete}
+                    style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Routing button container div*/}
@@ -383,5 +426,27 @@ function MainPage({ people, setPeople, addTransaction }) {
     </>
   );
 }
+
+const styles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  popup: {
+    backgroundColor: "var(--bg-invert)",
+    padding: "20px",
+    borderRadius: "10px",
+    textAlign: "center",
+    minWidth: "200px"
+  }
+};
 
 export default MainPage;
