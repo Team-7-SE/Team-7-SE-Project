@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "./firebase";
+import { ref, set } from "firebase/database";
+import { auth, db } from "./firebase";
 import './App.css';
 
 const VIEWS = { LOGIN: "login", CREATE: "create" };
@@ -18,6 +19,7 @@ function Page1() {
   const [password, setPassword] = useState("");
 
   // ── create account state ──────────────────────────────────
+  const [createName, setCreateName] = useState("");
   const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
   const [createConfirm, setCreateConfirm] = useState("");
@@ -41,22 +43,32 @@ function Page1() {
   };
 
   const handleCreateAccount = async () => {
-    setError("");
-    if (!createEmail.trim()) return setError("Please enter an email.");
-    if (createPassword.length < 6) return setError("Password must be at least 6 characters.");
-    if (createPassword !== createConfirm) return setError("Passwords do not match.");
+  setError("");
+  if (!createName.trim()) return setError("Please enter your name.");
+  if (!createEmail.trim()) return setError("Please enter an email.");
+  if (createPassword.length < 6) return setError("Password must be at least 6 characters.");
+  if (createPassword !== createConfirm) return setError("Passwords do not match.");
 
-    setLoading(true);
-    try {
-      // TODO: Wire to Firebase — createUserWithEmailAndPassword is imported and ready
-      await createUserWithEmailAndPassword(auth, createEmail, createPassword);
-      navigate("/main");
-    } catch (err) {
-      setError(err.message || "Could not create account.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    await createUserWithEmailAndPassword(auth, createEmail, createPassword);
+
+    const householdId = createEmail.replace(/\./g, "_");
+    // Creator becomes the first member of their own household
+    await set(ref(db, `users/${householdId}/members/${householdId}`), {
+      name: createName.trim(),
+      total: 0,
+      active: true,
+      avatar: "🧑"
+    });
+
+    navigate("/main");
+  } catch (err) {
+    setError(err.message || "Could not create account.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleResetPassword = async () => {
     setError("");
@@ -160,6 +172,14 @@ function Page1() {
       <p style={{ textAlign: "center", color: "#666", fontSize: "13px", marginBottom: "20px" }}>
         One account, shared by the whole household.
       </p>
+
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={createName}
+        onChange={(e) => { setCreateName(e.target.value); setError(""); }}
+        style={inputStyle}
+      />
 
       <input
         type="email"

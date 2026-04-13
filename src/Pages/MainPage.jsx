@@ -15,7 +15,7 @@ import SortPeople from "../Buttons/SortPeople";
 import SortItems from "../Buttons/SortItems";
 
 
-function MainPage({ people, setPeople, addTransaction }) {
+function MainPage({ people, setPeople, addTransaction, householdId }) {
 
   const navigate = useNavigate();
   const [showAddPerson, setShowAddPerson] = useState(false);
@@ -117,7 +117,7 @@ function MainPage({ people, setPeople, addTransaction }) {
         .filter(i => i.quantity > 0)
     );
 
-    const userRef = ref(db, 'users/' + personId);
+    const userRef = ref(db, `users/${householdId}/members/${personId}`);
     const snapshot = await get(userRef);
 
     if (snapshot.exists()) {
