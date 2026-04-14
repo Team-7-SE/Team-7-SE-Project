@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { ref, set } from "firebase/database";
-import { auth, db } from "./firebase";
+import {useState} from "react";
 import './App.css';
+import {useNavigate} from "react-router-dom";
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import {ref, set} from "firebase/database";
+import {auth, db} from "./firebase";
 
-const VIEWS = { LOGIN: "login", CREATE: "create" };
+const VIEWS = {LOGIN: "login", CREATE: "create"};
 
 function Page1() {
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ function Page1() {
   const switchView = (v) => { setView(v); setError(""); };
 
   // ── handlers ─────────────────────────────────────────────
-
   const handleLogin = async () => {
     setError("");
     setLoading(true);
@@ -85,7 +84,6 @@ function Page1() {
   };
 
   // ── styles ────────────────────────────────────────────────
-
   const cardStyle = {
     background: "var(--login-color)",
     padding: "36px 40px",
@@ -217,7 +215,6 @@ function Page1() {
   );
 
   // ── This is the base view ───────────────────────────────────────────
-
   return (
     <>
       <div>

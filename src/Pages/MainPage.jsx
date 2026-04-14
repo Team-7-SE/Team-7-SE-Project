@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import { ref, update, get, push, remove } from "firebase/database";
-import { db } from "../firebase";
-import { AVATARS } from "../avatars";
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import {auth } from "../firebase";
+import {ref, update, get, push, remove} from "firebase/database";
+import {db} from "../firebase";
+import {AVATARS} from "../avatars";
 
 import AddPerson from "../Buttons/AddPerson";
 import RemovePerson from "../Buttons/RemovePerson";
@@ -15,7 +15,7 @@ import SortPeople from "../Buttons/SortPeople";
 import SortItems from "../Buttons/SortItems";
 
 
-function MainPage({ people, setPeople, addTransaction, householdId }) {
+function MainPage({people, setPeople, addTransaction, householdId}) {
 
   const navigate = useNavigate();
   const [showAddPerson, setShowAddPerson] = useState(false);
@@ -87,7 +87,7 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
 
     await update(newItemRef, newItemData);
 
-    setItems(prev => [...prev, { id: newItemRef.key, ...newItemData }]);
+    setItems(prev => [...prev, {id: newItemRef.key, ...newItemData}]);
   };
 
   //handler for purchased button
@@ -100,10 +100,10 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
     const itemRef = ref(db, 'items/' + id);
 
     if (newQuantity <= 0) {
-      await update(ref(db, 'items'), { [id]: null });
+      await update(ref(db, 'items'), {[id]: null});
     }
     else {
-      await update(itemRef, { quantity: newQuantity });
+      await update(itemRef, {quantity: newQuantity});
     }
 
     // update items
@@ -111,7 +111,7 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
       prevItems
         .map(i =>
           i.id === id
-            ? { ...i, quantity: i.quantity - amount }
+            ? {...i, quantity: i.quantity - amount}
             : i
         )
         .filter(i => i.quantity > 0)
@@ -190,12 +190,9 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
     });
 
   return (
-
     <>
       {/*Entire Page div, used to set background color easily*/}
       <div style={{ backgroundColor: "var(--bg-color)" }}>
-
-
 
         {/*Upper half of main page div*/}
         <div style={{ textAlign: "left" }}>
@@ -278,12 +275,7 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
               />
             )}
           </div>
-
         </div>
-
-
-
-
 
         {/*Lower half of page div (list of items to buy)*/}
         <div style={{ textAlign: "left", marginTop: "50px" }}>
@@ -402,7 +394,6 @@ function MainPage({ people, setPeople, addTransaction, householdId }) {
           >
             Transactions
           </button>
-
 
           {/*Logout button*/}
           <button

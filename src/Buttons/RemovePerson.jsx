@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { ref, update } from "firebase/database";
-import { db } from "../firebase";
+import React, {useState} from "react";
+import {ref, update} from "firebase/database";
+import {db} from "../firebase";
 
 //Pop up function to remove person from our list
-function RemovePerson({ people, setPeople, closePopup }) {
+function RemovePerson({people, setPeople, closePopup}) {
 
     //State used to store typed name
     const [selectedId, setSelectedId] = useState("");

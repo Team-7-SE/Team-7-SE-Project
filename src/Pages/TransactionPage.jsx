@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {onAuthStateChanged, signOut} from "firebase/auth";
-import { auth } from "../firebase";
+import {auth} from "../firebase";
 
-function TransactionPage({ transactions }) {
+function TransactionPage({transactions}) {
   {/*useNavigate hook for routing back to login page on logout button click*/ }
   const navigate = useNavigate();
 
@@ -24,7 +24,6 @@ function TransactionPage({ transactions }) {
         navigate("/");
       })
   }
-
 
   return (
     //Background style
@@ -83,7 +82,6 @@ function TransactionPage({ transactions }) {
             <div>{t.cost}</div>
           </div>
         ))}
-
       </div>
 
       {/* Routing button container div*/}
@@ -123,8 +121,6 @@ function TransactionPage({ transactions }) {
           Logout
         </button>
       </div>
-
-
     </div>
   );
 }

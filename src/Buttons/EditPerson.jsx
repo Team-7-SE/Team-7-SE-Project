@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { ref, update } from "firebase/database";
-import { db } from "../firebase";
-import { AVATARS } from "../avatars";
+import React, {useState} from "react";
+import {ref, update} from "firebase/database";
+import {db} from "../firebase";
+import {AVATARS} from "../avatars";
 
 //Pop up function to edit person from our list
-function EditPerson({ people, setPeople, closePopup }) {
+function EditPerson({people, setPeople, closePopup}) {
 
     //State used to store typed name
     const [selectedId, setSelectedId] = useState("");

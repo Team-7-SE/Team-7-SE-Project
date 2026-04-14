@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { AVATARS } from "../avatars";
+import React, {useState} from "react";
+import {AVATARS} from "../avatars";
 
 //Pop up function to add new person to our list
-function AddPerson({ people, setPeople, closePopup }) {
+function AddPerson({people, setPeople, closePopup}) {
 
   //State used to store typed name
   const [newName, setNewName] = useState("");
@@ -45,8 +45,7 @@ function AddPerson({ people, setPeople, closePopup }) {
     <div style={styles.overlay}>
       {/*Popup box div*/}
       <div style={styles.popup}>
-        <h2 style={{ color: "var(--text-invert)" }}
-        >
+        <h2 style={{ color: "var(--text-invert)" }}>
           Add Person
         </h2>
 

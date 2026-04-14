@@ -1,6 +1,6 @@
 import React from "react";
 
-function SortPeople({ setSortType, closePopup }) {
+function SortPeople({setSortType, closePopup}) {
   return (
     <div style={styles.overlay}>
       <div style={styles.popup}>

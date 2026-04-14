@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 
 //pop up function to add new item to the list
-function AddItem({ addItem, closePopup }) {
+function AddItem({addItem, closePopup}) {
 
   //state used to store new item info
   const [item, setItem] = useState({

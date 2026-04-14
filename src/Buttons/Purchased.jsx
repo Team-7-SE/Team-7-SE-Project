@@ -1,6 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 
-function MarkPurchased({ item, markPurchased, closePopup, people, addTransaction }) {
+function MarkPurchased({item, markPurchased, closePopup, people, addTransaction}) {
 
     const [amount, setAmount] = useState(1);
     const [selectedPerson, setSelectedPerson] = useState("");
@@ -10,7 +10,6 @@ function MarkPurchased({ item, markPurchased, closePopup, people, addTransaction
             alert("Please select a person");
             return;
         }
-        
         if (amount > 0 && amount <= item.quantity) {
             markPurchased(item.id, amount, selectedPerson);
             addTransaction(item, amount, selectedPerson, people);
@@ -52,10 +51,7 @@ function MarkPurchased({ item, markPurchased, closePopup, people, addTransaction
                         Confirm
                     </button>
 
-                    <button
-                        onClick={closePopup}
-                        style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}
-                    >
+                    <button onClick={closePopup} style={{ marginLeft: "10px", border: "1px solid black", color: "white" }}>
                         Cancel
                     </button>
                 </div>
