@@ -148,7 +148,7 @@ const styles = {
     },
     //User input style
     input: {
-        width: "100%",
+        width: "75%",
         marginBottom: "15px",
         padding: "5px",
         backgroundColor: "white",

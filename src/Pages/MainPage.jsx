@@ -325,8 +325,8 @@ function MainPage({people, setPeople, addTransaction, householdId}) {
 
                 {/*quantity input*/}
                 <input type="number" value={item.quantity} min="1" max="999" step="1" style={{
-                  width: "40px", backgroundColor: "var(--bg-invert)",
-                  color: "var(--text-invert)", fontWeight: "bold", float: "right"
+                  width: "40px", backgroundColor: "white",
+                  color: "black", fontWeight: "bold", float: "right"
                 }} />
 
                 {/*delete button*/}
